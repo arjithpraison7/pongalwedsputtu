@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Arjith & Anjali//PongalWedsPuttu//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:wedding-20270127@pongalwedsputtu
+DTSTAMP:20261015T000000Z
+DTSTART:20270127T050000Z
+DTEND:20270127T093000Z
+SUMMARY:Wedding of Arjith & Anjali
+LOCATION:CSI Karyavattom\, Thiruvananthapuram
+DESCRIPTION:Holy Matrimony at 10:30 AM\, followed by lunch at TICC\, Karyavattom.\n#PongalWedsPuttu
+URL:https://arjithpraison7.github.io/pongalwedsputtu/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Arjith & Anjali//PongalWedsPuttu//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:mehndi-20270126@pongalwedsputtu
+DTSTAMP:20261015T000000Z
+DTSTART:20270126T123000Z
+DTEND:20270126T163000Z
+SUMMARY:Mehndi Night – Arjith & Anjali
+LOCATION:Vijaya Bhavan\, Pinakottukonam\, Karyavattom\, Thiruvananthapuram
+DESCRIPTION:Bride's residence. Map: https://maps.app.goo.gl/7PP5CeWbJTJpmfJu6\n#PongalWedsPuttu
+URL:https://arjithpraison7.github.io/pongalwedsputtu/
+END:VEVENT
+END:VCALENDAR

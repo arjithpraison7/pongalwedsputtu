@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Arjith & Anjali//PongalWedsPuttu//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:reception-20270130@pongalwedsputtu
+DTSTAMP:20261015T000000Z
+DTSTART:20270130T113000Z
+DTEND:20270130T163000Z
+SUMMARY:Wedding Reception – Arjith & Anjali
+LOCATION:Buhari's Blue Lagoon\, 5/72 Raja Nagar\, Neelankarai\, ECR\, Chennai 600115
+DESCRIPTION:#PongalWedsPuttu
+URL:https://arjithpraison7.github.io/pongalwedsputtu/
+END:VEVENT
+END:VCALENDAR
