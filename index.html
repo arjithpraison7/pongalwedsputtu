@@ -43,6 +43,7 @@
     --shade: rgba(20, 12, 8, 0.8);
     --heart: #C23A4B;
     --walk-h: 100px;
+    --map-h: calc(var(--walk-h) * 1.35);
 
     --display: "Gloock", "Playfair Display", Georgia, serif;
     --serif: "EB Garamond", Garamond, "Times New Roman", serif;
@@ -64,7 +65,7 @@
     line-height: 1.6;
     padding-top: env(safe-area-inset-top, 0px);
     /* room at the end of the page for the two of us to meet */
-    padding-bottom: calc(var(--walk-h) + 24px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(var(--map-h) + 44px + env(safe-area-inset-bottom, 0px));
   }
   img { max-width: 100%; }
   a { color: inherit; }
@@ -481,7 +482,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: calc(var(--walk-h) + 12px + env(safe-area-inset-bottom, 0px));
+    height: calc(var(--map-h) + 32px + env(safe-area-inset-bottom, 0px));
     pointer-events: none;
     z-index: 20;
   }
@@ -495,6 +496,36 @@
     background-size: 12px 4px;
     background-repeat: repeat-x;
     opacity: 0.5;
+  }
+  /* Kerala (west) on the left, Tamil Nadu (east) on the right, drawn to the same scale */
+  .state {
+    position: absolute;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .state.kerala { left: max(12px, 4vw, env(safe-area-inset-left, 0px)); align-items: flex-start; }
+  .state.tamilnadu { right: max(12px, 4vw, env(safe-area-inset-right, 0px)); align-items: flex-end; }
+  .state svg { display: block; height: var(--map-h); width: auto; overflow: visible; }
+  .state.kerala svg { height: calc(var(--map-h) * 0.823); aspect-ratio: 248.7 / 449.3; }
+  .state.tamilnadu svg { aspect-ratio: 405.2 / 546.1; }
+  .state path {
+    fill: var(--gold-soft);
+    fill-opacity: 0.3;
+    stroke: var(--gold);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .state-name {
+    font-family: var(--label);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
   }
   .walker {
     position: absolute;
@@ -686,8 +717,10 @@
 
 <div class="walk" id="walk" aria-hidden="true">
   <div class="walk-road"></div>
-  <img class="walker groom" src="images/mini-arjith.png" width="129" height="300" alt="">
+  <div class="state kerala"><span class="state-name">Kerala</span><svg viewBox="0 0 248.7 449.3"><path d="M12.7 0.3L11.6 6.1L18.0 7.6L17.8 13.1L21.3 12.4L21.6 9.3L27.9 11.4L27.2 15.8L32.9 16.6L35.0 22.8L40.3 17.9L45.4 20.6L39.8 23.7L46.2 33.3L53.9 29.4L54.7 33.1L49.2 33.9L49.1 38.4L54.6 42.4L54.3 50.4L60.6 50.5L69.8 64.0L75.6 64.8L83.6 72.9L91.3 71.7L94.4 81.3L99.3 85.0L111.3 86.7L122.1 82.0L122.9 94.8L129.5 92.7L132.9 99.1L138.2 98.7L144.4 106.0L151.5 103.7L150.4 109.0L154.1 115.7L140.7 122.6L138.1 119.8L133.6 122.6L135.1 133.1L138.8 131.6L151.8 135.7L155.5 140.9L164.4 143.9L164.6 149.8L155.3 156.0L156.0 161.1L159.4 158.8L172.7 160.5L180.0 155.9L182.8 158.2L179.4 164.6L184.1 167.0L183.9 174.3L189.4 174.8L180.9 175.9L175.3 186.7L191.8 192.9L199.7 202.0L195.6 211.6L197.2 216.1L190.6 216.4L193.0 220.6L192.0 249.6L206.9 258.2L225.8 244.5L231.6 245.1L234.0 257.0L237.3 258.4L235.3 267.2L228.2 269.8L235.5 282.7L229.9 289.6L232.8 300.2L224.7 318.5L234.8 322.6L239.7 319.8L241.7 322.8L243.3 319.6L244.2 326.5L248.7 329.4L236.0 350.0L234.5 364.8L227.7 375.4L222.8 377.9L233.5 392.6L230.9 401.5L225.0 405.3L235.8 424.8L234.1 428.9L228.1 429.7L230.4 435.3L223.0 441.2L225.5 447.8L218.7 449.3L207.4 440.6L173.6 395.5L165.2 388.8L157.0 365.7L159.0 366.4L159.7 362.1L157.7 364.8L153.0 354.5L156.7 365.0L142.0 326.7L135.9 282.1L140.5 287.3L140.6 289.8L136.8 287.5L138.0 292.5L139.7 289.2L139.4 295.8L140.5 290.1L142.8 291.5L145.4 307.8L142.9 292.0L147.9 297.1L146.9 309.0L150.7 311.7L146.6 326.5L160.8 326.0L152.5 323.1L148.6 292.6L144.9 287.1L145.2 290.6L142.8 290.2L136.0 276.1L135.1 272.0L136.7 274.5L137.5 271.2L133.6 266.4L135.0 271.6L132.2 264.7L135.6 281.8L133.5 281.4L127.8 261.6L131.4 265.2L130.3 259.6L127.2 260.2L114.8 226.5L118.1 224.6L115.5 221.5L114.7 227.7L102.6 199.8L94.3 166.8L97.5 165.2L94.2 166.5L92.0 163.3L94.6 161.0L92.0 162.8L80.2 134.3L73.8 131.4L66.5 110.9L59.5 102.7L63.0 103.0L59.8 102.4L62.3 99.3L57.7 102.1L58.4 98.3L57.1 100.9L42.5 84.7L52.4 87.5L50.0 83.4L48.4 85.9L44.4 84.5L39.2 78.4L45.9 78.1L42.6 77.5L46.5 74.3L43.3 75.7L43.5 68.8L52.7 65.4L45.1 64.6L40.1 69.1L35.1 68.6L35.8 76.6L32.8 78.3L30.7 71.0L34.8 72.1L30.1 70.5L32.0 65.8L31.7 69.5L29.0 67.2L0.0 3.8L12.7 0.3Z"/></svg></div>
+  <div class="state tamilnadu"><span class="state-name">Tamil Nadu</span><svg viewBox="0 0 405.2 546.1"><path d="M378.6 1.1L386.1 5.9L394.8 6.7L401.8 16.8L403.2 9.5L405.0 26.4L401.2 32.2L403.9 30.3L397.3 52.4L395.5 73.2L394.0 69.1L396.1 75.9L389.3 96.0L387.3 93.4L389.3 96.3L386.4 107.1L376.1 121.2L376.8 117.0L372.8 119.7L377.3 118.7L372.0 128.1L365.7 131.7L371.8 128.4L355.1 159.7L351.4 157.3L345.2 163.0L343.2 157.0L346.5 155.1L342.2 156.0L339.5 151.8L335.9 156.2L341.5 156.6L339.5 160.1L344.1 164.6L340.8 165.9L339.9 163.3L337.6 167.2L341.2 166.4L344.3 170.5L346.5 167.7L346.7 171.3L349.6 169.7L351.5 173.0L347.2 197.4L355.2 218.1L356.0 229.4L351.9 230.1L356.1 229.5L356.9 256.0L344.7 255.1L346.1 259.4L342.0 258.6L342.0 261.9L352.3 267.0L352.8 272.4L356.5 272.4L359.6 323.5L345.8 326.2L350.0 325.7L349.3 323.5L335.4 321.9L334.7 317.4L333.1 322.0L327.2 322.7L344.6 326.4L324.6 323.2L330.7 320.5L326.4 319.0L324.5 321.9L317.6 319.6L323.2 322.9L310.7 322.1L301.8 327.7L295.3 339.3L299.1 350.0L271.0 384.7L262.8 404.9L276.2 421.9L291.5 425.6L256.5 429.2L256.3 426.9L256.3 429.4L245.1 434.7L239.1 434.5L239.1 438.0L231.3 440.6L222.0 441.0L222.5 438.7L210.4 444.6L200.1 451.9L191.0 465.6L189.9 476.6L194.0 474.9L197.1 478.9L191.2 479.2L184.8 488.6L183.9 495.6L187.8 494.6L184.5 494.5L187.0 489.9L188.1 494.9L187.3 504.1L180.9 511.7L181.0 516.7L155.2 528.9L149.5 536.1L132.7 540.2L130.3 546.1L107.2 541.7L85.0 524.0L91.8 522.5L89.4 515.9L96.7 510.0L94.5 504.4L100.5 503.6L102.2 500.0L91.4 480.0L97.2 476.2L99.9 467.3L89.1 452.6L94.0 450.1L100.9 439.5L102.4 424.7L115.1 404.1L110.6 401.1L109.6 394.3L108.1 397.4L106.0 394.5L101.2 397.3L91.1 393.2L99.1 374.9L96.2 364.3L101.8 357.4L94.6 344.2L101.7 341.9L103.7 333.0L100.4 331.7L98.0 319.7L92.2 319.1L73.3 332.9L58.4 324.2L59.4 295.3L57.0 291.1L63.6 290.8L61.9 286.2L66.1 276.7L58.2 267.6L41.6 261.3L47.3 250.6L55.7 249.5L50.3 249.0L50.4 241.6L45.8 239.3L49.1 232.9L46.3 230.6L39.1 235.2L25.8 233.5L22.3 235.7L21.7 230.7L30.9 224.5L30.7 218.6L21.9 215.6L18.2 210.4L5.1 206.3L1.4 207.8L0.0 197.3L4.4 194.5L7.1 197.3L12.2 195.5L27.4 184.0L32.9 192.7L51.2 192.7L60.1 196.3L59.3 189.3L66.3 175.4L72.2 177.2L76.6 173.5L86.9 182.5L86.2 177.4L99.9 173.5L117.4 178.7L123.8 160.5L141.5 159.8L151.5 142.8L146.9 136.6L123.6 134.7L121.7 129.4L135.7 117.7L137.6 106.0L132.7 106.9L135.8 103.8L132.2 98.0L134.2 88.0L148.0 87.4L154.7 75.1L153.3 70.4L157.3 67.9L167.0 66.0L165.7 71.8L169.1 68.8L172.6 74.2L175.9 69.2L179.0 69.5L186.3 76.8L196.1 78.5L196.8 82.2L193.1 85.6L200.5 84.6L210.7 92.6L219.2 92.6L219.5 87.5L224.6 83.9L222.1 80.3L228.3 85.2L228.1 79.4L238.0 61.9L234.8 55.9L238.5 52.0L242.7 53.3L243.5 48.1L260.6 45.1L261.2 51.8L265.4 51.9L262.3 50.2L264.4 47.0L270.8 46.1L279.6 52.3L287.8 53.0L294.2 40.2L299.1 39.6L303.1 44.1L307.6 40.8L307.0 37.5L314.4 35.0L316.6 32.1L313.2 32.5L314.6 25.6L309.6 23.5L314.9 21.4L325.5 22.7L329.8 29.2L338.5 25.6L340.5 33.0L343.9 31.6L346.0 34.3L350.0 31.4L343.7 26.5L363.8 20.2L367.4 8.6L374.6 5.3L370.1 1.1L378.6 1.1Z"/></svg></div>
   <img class="walker bride" src="images/mini-anjali.png" width="185" height="300" alt="">
+  <img class="walker groom" src="images/mini-arjith.png" width="129" height="300" alt="">
   <svg class="walk-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
 </div>
 
@@ -771,6 +804,9 @@
     var walk = document.getElementById("walk");
     var groom = walk.querySelector(".groom");
     var bride = walk.querySelector(".bride");
+    var states = walk.querySelectorAll(".state");
+    var kerala = walk.querySelector(".kerala svg");
+    var tamil = walk.querySelector(".tamilnadu svg");
     var still = window.matchMedia("(prefers-reduced-motion: reduce)");
     var queued = false;
     function place() {
@@ -781,17 +817,22 @@
       var y = window.scrollY || window.pageYOffset || 0;
       var p = max > 0 ? Math.min(1, Math.max(0, y / max)) : 1;
       var gW = groom.offsetWidth, bW = bride.offsetWidth;
-      var edge = Math.max(12, vw * 0.04);
+      var kr = kerala.getBoundingClientRect(), tr = tamil.getBoundingClientRect();
       var mid = vw / 2;
-      var gFrom = edge, gTo = mid - gW * 0.9;
-      var bFrom = vw - edge - bW, bTo = mid - bW * 0.08;
-      var gx = gFrom + (gTo - gFrom) * p;
+      // Anjali starts at Thiruvananthapuram (Kerala's southern tip), Arjith in front of Tamil Nadu
+      var bFrom = kr.left + kr.width * 0.88 - bW / 2, bTo = mid - bW * 0.84;
+      var gFrom = tr.left + tr.width * 0.5 - gW / 2, gTo = mid - gW * 0.04;
       var bx = bFrom + (bTo - bFrom) * p;
+      var gx = gFrom + (gTo - gFrom) * p;
       // a little bounce in each step while scrolling
-      var stepG = still.matches ? 0 : -Math.abs(Math.sin(y / 45)) * 5;
-      var stepB = still.matches ? 0 : -Math.abs(Math.cos(y / 45)) * 5;
-      groom.style.transform = "translate3d(" + gx.toFixed(1) + "px," + stepG.toFixed(1) + "px,0)";
-      bride.style.transform = "translate3d(" + bx.toFixed(1) + "px," + stepB.toFixed(1) + "px,0)";
+      var stepB = still.matches ? 0 : -Math.abs(Math.sin(y / 45)) * 5;
+      var stepG = still.matches ? 0 : -Math.abs(Math.cos(y / 45)) * 5;
+      // both cartoons are mirrored so they face each other
+      bride.style.transform = "translate3d(" + bx.toFixed(1) + "px," + stepB.toFixed(1) + "px,0) scaleX(-1)";
+      groom.style.transform = "translate3d(" + gx.toFixed(1) + "px," + stepG.toFixed(1) + "px,0) scaleX(-1)";
+      // the maps step back while they walk and come back when they meet
+      var o = p < 0.5 ? 1 - p * 1.4 : (p > 0.9 ? 0.3 + (p - 0.9) * 7 : 0.3);
+      states[0].style.opacity = states[1].style.opacity = Math.min(1, o).toFixed(2);
       walk.classList.toggle("met", p > 0.98);
     }
     function queue() {
