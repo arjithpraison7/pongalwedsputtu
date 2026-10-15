@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Arjith &amp; Anjali · 27 January 2027</title>
-<meta name="description" content="Arjith Praison and Anjali Vijay are getting married on Wednesday 27 January 2027 at CSI Karyavattom, Thiruvananthapuram. #PongalWedsPuttu">
+<meta name="description" content="Arjith Praison and Anjali Vijay S are getting married on Wednesday 27 January 2027 at CSI Karyavattom, Thiruvananthapuram. #PongalWedsPuttu">
 <!-- Shared with family and friends by link only; keep it out of search engines -->
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#5C1A2B">
@@ -319,6 +319,7 @@
     height: auto;
     aspect-ratio: 1080 / 1512;
   }
+  .invite.art img { object-fit: cover; object-position: center top; }
   .invite .open {
     position: absolute;
     right: 10px;
@@ -505,7 +506,7 @@
       <h1 class="names">
         <span>Arjith Praison</span>
         <span class="amp">&amp;</span>
-        <span>Anjali Vijay</span>
+        <span>Anjali Vijay&nbsp;S</span>
       </h1>
       <p class="label">Two states. Two languages. One love.</p>
       <p class="invite-line">Together with our families, we request the honour of your presence at our wedding.</p>
@@ -555,22 +556,22 @@
 
   <ol class="events">
     <li class="event mehndi">
-      <a class="invite" href="images/invite-mehndi.jpg" data-file="Arjith-Anjali-Mehndi-26Jan2027.jpg">
-        <img src="images/invite-mehndi.jpg" width="1080" height="1512" loading="lazy" alt="Mehndi Night invitation: Arjith and Anjali, Tuesday 26 January 2027, 6:00 PM, Bride's Residence, Thiruvananthapuram">
-        <span class="open">Open</span>
-      </a>
-      <div class="event-top">
-        <div class="date"><span class="day">26</span><span class="label">Jan 2027<br>Tuesday</span></div>
-        <span class="chip" data-start="2027-01-26T18:00:00+05:30"></span>
+      <div class="invite art">
+        <img src="images/mehndi-art.jpg" width="1080" height="860" loading="lazy" alt="Paisley, jasmine and coconut palm artwork with the words Two States. Two Languages. One Love.">
       </div>
-      <h3>Mehndi Night</h3>
+      <div class="event-top">
+        <div class="date"><span class="day">25</span><span class="label">Jan 2027<br>Monday</span></div>
+        <span class="chip" data-start="2027-01-25T10:00:00+05:30"></span>
+      </div>
+      <h3>Mehndi &amp; Haldi</h3>
       <dl class="facts">
-        <div><dt>Time</dt><dd>6:00 PM</dd></div>
+        <div><dt>Mehndi</dt><dd>10:00 AM</dd></div>
+        <div><dt>Haldi</dt><dd>Evening</dd></div>
         <div><dt>Place</dt><dd>Bride’s home, Vijaya Bhavan, Pinakottukonam, Karyavattom</dd></div>
       </dl>
       <div class="links">
         <a href="https://maps.app.goo.gl/7PP5CeWbJTJpmfJu6" target="_blank" rel="noopener">Map ↗</a>
-        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Mehndi%20Night%20%E2%80%93%20Arjith%20%26%20Anjali&amp;dates=20270126T123000Z/20270126T163000Z&amp;location=Vijaya%20Bhavan%2C%20Pinakottukonam%2C%20Karyavattom%2C%20Thiruvananthapuram&amp;details=Map%3A%20https%3A%2F%2Fmaps.app.goo.gl%2F7PP5CeWbJTJpmfJu6%20%23PongalWedsPuttu" target="_blank" rel="noopener">Google Calendar ↗</a>
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Mehndi%20%26%20Haldi%20%E2%80%93%20Arjith%20%26%20Anjali&amp;dates=20270125T043000Z/20270125T153000Z&amp;location=Vijaya%20Bhavan%2C%20Pinakottukonam%2C%20Karyavattom%2C%20Thiruvananthapuram&amp;details=Mehndi%20from%2010%3A00%20AM%2C%20Haldi%20in%20the%20evening.%20Map%3A%20https%3A%2F%2Fmaps.app.goo.gl%2F7PP5CeWbJTJpmfJu6%20%23PongalWedsPuttu" target="_blank" rel="noopener">Google Calendar ↗</a>
         <a href="calendar/mehndi.ics">Apple / Outlook</a>
       </div>
     </li>
@@ -695,7 +696,7 @@
     var vImg = document.getElementById("viewer-img");
     var vSave = document.getElementById("viewer-save");
     if (viewer && typeof viewer.showModal === "function") {
-      document.querySelectorAll(".invite").forEach(function (link) {
+      document.querySelectorAll("a.invite").forEach(function (link) {
         link.addEventListener("click", function (e) {
           e.preventDefault();
           var thumb = link.querySelector("img");
