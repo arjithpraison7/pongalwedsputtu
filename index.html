@@ -21,7 +21,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%235C1A2B'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-style='italic' font-size='38' text-anchor='middle' fill='%23E3CF9E'%3E%26%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@400;500&family=Noto+Serif+Tamil:wght@500&family=Noto+Serif+Malayalam:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@400;500&family=Noto+Serif+Tamil:wght@400;500;600&family=Noto+Serif+Malayalam:wght@400;500;600&family=Noto+Sans+Tamil:wght@500&family=Noto+Sans+Malayalam:wght@500&display=swap">
 <style>
   /* Layout: one long invitation card. Arched portrait beside the names, a kasavu-bordered countdown band,
      then the three celebrations, each card carrying its printed invitation and dressed in its colours. */
@@ -42,12 +42,14 @@
     --navy-line: #34415F;
     --shade: rgba(20, 12, 8, 0.8);
     --heart: #C23A4B;
+    --qr-ink: #24140F;
+    --qr-bg: #FFFFFF;
     --walk-h: 100px;
     --map-h: calc(var(--walk-h) * 1.35);
 
-    --display: "Gloock", "Playfair Display", Georgia, serif;
-    --serif: "EB Garamond", Garamond, "Times New Roman", serif;
-    --label: "Jost", "Helvetica Neue", Arial, sans-serif;
+    --display: "Gloock", "Noto Serif Tamil", "Noto Serif Malayalam", "Playfair Display", Georgia, serif;
+    --serif: "EB Garamond", "Noto Serif Tamil", "Noto Serif Malayalam", Garamond, "Times New Roman", serif;
+    --label: "Jost", "Noto Sans Tamil", "Noto Sans Malayalam", "Helvetica Neue", Arial, sans-serif;
     --tamil: "Noto Serif Tamil", "Latha", serif;
     --malayalam: "Noto Serif Malayalam", "Kartika", serif;
 
@@ -550,6 +552,62 @@
   }
   .walk.met .walk-heart { opacity: 1; transform: translate(-50%, 0) scale(1); }
 
+  /* ---------- Language switch ---------- */
+  .langs-row { display: flex; justify-content: flex-end; padding-top: 14px; }
+  .langs {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid var(--gold-soft);
+    border-radius: 999px;
+    background: var(--ivory);
+  }
+  .langs button {
+    font-family: var(--label);
+    font-size: 0.85rem;
+    line-height: 1.2;
+    border: 0;
+    border-radius: 999px;
+    padding: 6px 14px;
+    background: transparent;
+    color: var(--maroon);
+    cursor: pointer;
+  }
+  .langs button[aria-pressed="true"] { background: var(--maroon); color: var(--ivory); }
+
+  /* ---------- Location QR codes ---------- */
+  .qr-block { display: flex; flex-direction: column; gap: 8px; }
+  .qr-title {
+    margin: 0;
+    font-family: var(--label);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-gold);
+  }
+  .qr-row { display: flex; flex-wrap: wrap; gap: 14px; }
+  .qr { margin: 0; width: 104px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .qr svg { display: block; width: 104px; height: 104px; padding: 8px; background: var(--qr-bg); border-radius: 4px; }
+  .qr svg path { fill: var(--qr-ink); }
+  .qr figcaption { font-family: var(--label); font-size: 0.72rem; line-height: 1.3; text-align: center; color: var(--c-ink); }
+
+  /* ---------- Tamil and Malayalam: no letter-spacing or capitals, gentler sizes ---------- */
+  :root:is([lang="ta"], [lang="ml"]) body { line-height: 1.75; }
+  :root:is([lang="ta"], [lang="ml"]) :is(.label, .state-name, .facts dt, .chip, .btn, .copy, .invite .open, .qr-title) {
+    letter-spacing: 0.01em;
+    text-transform: none;
+  }
+  :root:is([lang="ta"], [lang="ml"]) .hero-text .label { font-size: 0.86rem; }
+  :root:is([lang="ta"], [lang="ml"]) .invite-line { font-size: 1.05rem; }
+  :root:is([lang="ta"], [lang="ml"]) .when dd { font-size: 1.02rem; }
+  :root:is([lang="ta"], [lang="ml"]) .countdown h2 { font-size: clamp(1.15rem, 3vw, 1.6rem); line-height: 1.5; }
+  :root:is([lang="ta"], [lang="ml"]) .unit .label { font-size: 0.74rem; }
+  :root:is([lang="ta"], [lang="ml"]) .verse blockquote { font-style: normal; font-size: clamp(1.1rem, 2.6vw, 1.4rem); line-height: 1.75; max-width: 34ch; }
+  :root:is([lang="ta"], [lang="ml"]) .events-head h2 { font-size: clamp(1.35rem, 3.4vw, 2rem); line-height: 1.45; }
+  :root:is([lang="ta"], [lang="ml"]) .event h3 { font-size: 1.3rem; line-height: 1.4; }
+  :root:is([lang="ta"], [lang="ml"]) .facts div { grid-template-columns: 5.4rem minmax(0, 1fr); }
+  :root:is([lang="ta"], [lang="ml"]) .facts dt { font-size: 0.78rem; padding-top: 3px; }
+
   @media (prefers-reduced-motion: no-preference) {
     .walk-heart { transition: transform 0.4s cubic-bezier(0.2, 1.6, 0.4, 1), opacity 0.25s ease; }
     .copy, .links a, .btn { transition: color 0.2s ease, background-color 0.2s ease; }
@@ -562,6 +620,7 @@
   }
   @media (max-width: 760px) {
     :root { --walk-h: 76px; }
+    .langs-row { justify-content: center; }
     .hero { grid-template-columns: minmax(0, 1fr); }
     .portrait { width: 100%; max-width: 340px; margin-inline: auto; }
     .hero-text { text-align: center; align-items: center; }
@@ -576,30 +635,37 @@
 <div class="kasavu" aria-hidden="true"></div>
 
 <header class="hero-band">
+  <div class="wrap langs-row">
+    <nav class="langs" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">English</button>
+      <button type="button" data-lang="ta" lang="ta" aria-pressed="false">தமிழ்</button>
+      <button type="button" data-lang="ml" lang="ml" aria-pressed="false">മലയാളം</button>
+    </nav>
+  </div>
   <div class="wrap hero">
     <figure class="portrait">
       <img src="images/portrait.jpg" width="1136" height="1408" alt="Painted Ghibli-style portrait of Arjith and Anjali smiling together in a Kerala garden with coconut palms">
     </figure>
 
     <div class="hero-text">
-      <p class="label">Holy Matrimony · Thiruvananthapuram</p>
+      <p class="label" data-i18n="hero_eyebrow">Holy Matrimony · Thiruvananthapuram</p>
       <h1 class="names">
         <span>Arjith Praison</span>
         <span class="amp">&amp;</span>
         <span>Anjali Vijay&nbsp;S</span>
       </h1>
-      <p class="label">Two states. Two languages. One love.</p>
-      <p class="invite-line">Together with our families, we request the honour of your presence at our wedding.</p>
+      <p class="label" data-i18n="tagline">Two states. Two languages. One love.</p>
+      <p class="invite-line" data-i18n="invite">Together with our families, we request the honour of your presence at our wedding.</p>
       <p class="greeting">
         <span class="ta" lang="ta">அன்புடன் அழைக்கிறோம்</span>
         <span class="dot" aria-hidden="true">·</span>
         <span class="ml" lang="ml">സ്നേഹപൂർവ്വം ക്ഷണിക്കുന്നു</span>
       </p>
       <dl class="when">
-        <dt class="label">When</dt>
-        <dd><strong>Wednesday, 27 January 2027</strong> · <span class="nowrap">10:30 AM</span></dd>
-        <dt class="label">Where</dt>
-        <dd><strong>CSI Karyavattom</strong>, Thiruvananthapuram</dd>
+        <dt class="label" data-i18n="when">When</dt>
+        <dd data-i18n="when_val"><strong>Wednesday, 27 January 2027</strong> · <span class="nowrap">10:30 AM</span></dd>
+        <dt class="label" data-i18n="where">Where</dt>
+        <dd data-i18n="where_val"><strong>CSI Karyavattom</strong>, Thiruvananthapuram</dd>
       </dl>
     </div>
   </div>
@@ -608,30 +674,30 @@
 <div class="kasavu flip" aria-hidden="true"></div>
 <section class="countdown" aria-labelledby="cd-title">
   <div class="wrap">
-    <h2 id="cd-title">Counting down to “I will”</h2>
+    <h2 id="cd-title" data-i18n="cd_title">Counting down to “I will”</h2>
     <div class="units" id="units" role="timer" aria-live="off">
-      <div class="unit"><span class="num" id="cd-days">–</span><span class="label">Days</span></div>
-      <div class="unit"><span class="num" id="cd-hours">–</span><span class="label">Hours</span></div>
-      <div class="unit"><span class="num" id="cd-mins">–</span><span class="label">Minutes</span></div>
-      <div class="unit"><span class="num" id="cd-secs">–</span><span class="label">Seconds</span></div>
+      <div class="unit"><span class="num" id="cd-days">–</span><span class="label" data-i18n="u_days">Days</span></div>
+      <div class="unit"><span class="num" id="cd-hours">–</span><span class="label" data-i18n="u_hours">Hours</span></div>
+      <div class="unit"><span class="num" id="cd-mins">–</span><span class="label" data-i18n="u_mins">Minutes</span></div>
+      <div class="unit"><span class="num" id="cd-secs">–</span><span class="label" data-i18n="u_secs">Seconds</span></div>
     </div>
-    <p class="married" id="married" hidden>Just married!</p>
-    <p class="note">Wednesday 27 January 2027, 10:30 AM in Thiruvananthapuram. For friends in Germany, that is 6:00 AM.</p>
+    <p class="married" id="married" data-i18n="married" hidden>Just married!</p>
+    <p class="note" data-i18n="cd_note">Wednesday 27 January 2027, 10:30 AM in Thiruvananthapuram. For friends in Germany, that is 6:00 AM.</p>
   </div>
 </section>
 <div class="kasavu" aria-hidden="true"></div>
 
 <section class="verse">
   <div class="wrap">
-    <blockquote>“What God has joined together, let no one separate.”<cite class="label">Mark 10:9</cite></blockquote>
+    <blockquote><span data-i18n="verse">“What God has joined together, let no one separate.”</span><cite class="label" data-i18n="verse_ref">Mark 10:9</cite></blockquote>
   </div>
 </section>
 
 <main class="wrap" aria-labelledby="events-title">
   <div class="events-head">
-    <p class="label">Three celebrations, two cities</p>
-    <h2 id="events-title">From the backwaters to the Marina</h2>
-    <p>Tap an invitation to open it full size and save it.</p>
+    <p class="label" data-i18n="ev_eyebrow">Three celebrations, two cities</p>
+    <h2 id="events-title" data-i18n="ev_title">From the backwaters to the Marina</h2>
+    <p data-i18n="ev_hint">Tap an invitation to open it full size and save it.</p>
   </div>
 
   <ol class="events">
@@ -640,17 +706,21 @@
         <img src="images/mehndi-art.jpg" width="1080" height="860" loading="lazy" alt="Paisley, jasmine and coconut palm artwork with the words Two States. Two Languages. One Love.">
       </div>
       <div class="event-top">
-        <div class="date"><span class="day">25</span><span class="label">Jan 2027<br>Monday</span></div>
+        <div class="date"><span class="day">25</span><span class="label" data-i18n="d_mon">Jan 2027<br>Monday</span></div>
         <span class="chip" data-start="2027-01-25T10:00:00+05:30"></span>
       </div>
-      <h3>Mehndi &amp; Haldi</h3>
+      <h3 data-i18n="t_mehndi">Mehndi &amp; Haldi</h3>
       <dl class="facts">
-        <div><dt>Mehndi</dt><dd>10:00 AM</dd></div>
-        <div><dt>Haldi</dt><dd>Evening</dd></div>
-        <div><dt>Place</dt><dd>Bride’s home, Vijaya Bhavan, Pinakottukonam, Karyavattom</dd></div>
+        <div><dt data-i18n="f_mehndi">Mehndi</dt><dd data-i18n="v_10am">10:00 AM</dd></div>
+        <div><dt data-i18n="f_haldi">Haldi</dt><dd data-i18n="v_evening">Evening</dd></div>
+        <div><dt data-i18n="f_place">Place</dt><dd data-i18n="v_bride_home">Bride’s home, Vijaya Bhavan, Pinakottukonam, Karyavattom</dd></div>
       </dl>
+      <div class="qr-block">
+        <p class="qr-title" data-i18n="qr_title">Scan for directions</p>
+        <div class="qr-row"><figure class="qr"><svg viewBox="0 0 29 29" shape-rendering="crispEdges" role="img" aria-label="QR code: map to the bride’s home"><path d="M0 0h7v1h-7zM8 0h1v1h-1zM10 0h1v1h-1zM13 0h1v1h-1zM16 0h5v1h-5zM22 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h3v1h-3zM17 1h2v1h-2zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM9 2h1v1h-1zM11 2h1v1h-1zM13 2h2v1h-2zM16 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h3v1h-3zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h1v1h-1zM12 3h7v1h-7zM22 3h1v1h-1zM24 3h3v1h-3zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM10 4h1v1h-1zM12 4h1v1h-1zM14 4h3v1h-3zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h3v1h-3zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM12 5h1v1h-1zM14 5h1v1h-1zM16 5h4v1h-4zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h7v1h-7zM8 7h1v1h-1zM10 7h3v1h-3zM14 7h2v1h-2zM17 7h3v1h-3zM0 8h1v1h-1zM2 8h2v1h-2zM5 8h3v1h-3zM9 8h1v1h-1zM13 8h5v1h-5zM22 8h1v1h-1zM25 8h1v1h-1zM27 8h2v1h-2zM0 9h4v1h-4zM5 9h1v1h-1zM8 9h6v1h-6zM15 9h2v1h-2zM19 9h1v1h-1zM21 9h2v1h-2zM24 9h1v1h-1zM28 9h1v1h-1zM1 10h2v1h-2zM6 10h2v1h-2zM13 10h2v1h-2zM18 10h1v1h-1zM21 10h2v1h-2zM24 10h1v1h-1zM26 10h2v1h-2zM0 11h1v1h-1zM4 11h2v1h-2zM12 11h2v1h-2zM18 11h1v1h-1zM20 11h1v1h-1zM28 11h1v1h-1zM0 12h1v1h-1zM2 12h3v1h-3zM6 12h1v1h-1zM8 12h9v1h-9zM19 12h1v1h-1zM23 12h1v1h-1zM25 12h2v1h-2zM0 13h1v1h-1zM2 13h2v1h-2zM5 13h1v1h-1zM7 13h1v1h-1zM9 13h1v1h-1zM16 13h4v1h-4zM22 13h1v1h-1zM26 13h3v1h-3zM1 14h1v1h-1zM3 14h1v1h-1zM5 14h4v1h-4zM10 14h5v1h-5zM16 14h1v1h-1zM19 14h2v1h-2zM22 14h1v1h-1zM26 14h3v1h-3zM1 15h1v1h-1zM3 15h1v1h-1zM8 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM18 15h3v1h-3zM24 15h1v1h-1zM27 15h1v1h-1zM1 16h3v1h-3zM6 16h1v1h-1zM8 16h3v1h-3zM13 16h3v1h-3zM17 16h5v1h-5zM24 16h2v1h-2zM27 16h1v1h-1zM2 17h1v1h-1zM4 17h2v1h-2zM7 17h1v1h-1zM12 17h3v1h-3zM18 17h1v1h-1zM20 17h2v1h-2zM23 17h1v1h-1zM25 17h3v1h-3zM0 18h1v1h-1zM2 18h1v1h-1zM5 18h3v1h-3zM11 18h5v1h-5zM18 18h1v1h-1zM20 18h2v1h-2zM23 18h2v1h-2zM26 18h1v1h-1zM3 19h3v1h-3zM8 19h2v1h-2zM12 19h1v1h-1zM14 19h2v1h-2zM17 19h1v1h-1zM19 19h1v1h-1zM23 19h1v1h-1zM26 19h1v1h-1zM1 20h3v1h-3zM5 20h2v1h-2zM9 20h1v1h-1zM11 20h3v1h-3zM16 20h2v1h-2zM19 20h8v1h-8zM8 21h1v1h-1zM10 21h1v1h-1zM16 21h1v1h-1zM20 21h1v1h-1zM24 21h5v1h-5zM0 22h7v1h-7zM8 22h5v1h-5zM14 22h1v1h-1zM16 22h5v1h-5zM22 22h1v1h-1zM24 22h2v1h-2zM27 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM10 23h2v1h-2zM13 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h2v1h-2zM27 23h2v1h-2zM0 24h1v1h-1zM2 24h3v1h-3zM6 24h1v1h-1zM10 24h1v1h-1zM15 24h2v1h-2zM20 24h5v1h-5zM26 24h3v1h-3zM0 25h1v1h-1zM2 25h3v1h-3zM6 25h1v1h-1zM8 25h1v1h-1zM10 25h1v1h-1zM13 25h2v1h-2zM16 25h2v1h-2zM21 25h1v1h-1zM23 25h3v1h-3zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h3v1h-3zM6 26h1v1h-1zM8 26h5v1h-5zM17 26h1v1h-1zM20 26h2v1h-2zM23 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM9 27h1v1h-1zM11 27h1v1h-1zM15 27h2v1h-2zM20 27h2v1h-2zM23 27h3v1h-3zM27 27h1v1h-1zM0 28h7v1h-7zM8 28h1v1h-1zM11 28h2v1h-2zM14 28h1v1h-1zM18 28h1v1h-1zM20 28h1v1h-1zM24 28h1v1h-1zM27 28h1v1h-1z"/></svg><figcaption data-i18n="qr_home">Bride’s home</figcaption></figure></div>
+      </div>
       <div class="links">
-        <a href="https://maps.app.goo.gl/7PP5CeWbJTJpmfJu6" target="_blank" rel="noopener">Map ↗</a>
+        <a href="https://maps.app.goo.gl/7PP5CeWbJTJpmfJu6" target="_blank" rel="noopener" data-i18n="l_map">Map ↗</a>
         <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Mehndi%20%26%20Haldi%20%E2%80%93%20Arjith%20%26%20Anjali&amp;dates=20270125T043000Z/20270125T153000Z&amp;location=Vijaya%20Bhavan%2C%20Pinakottukonam%2C%20Karyavattom%2C%20Thiruvananthapuram&amp;details=Mehndi%20from%2010%3A00%20AM%2C%20Haldi%20in%20the%20evening.%20Map%3A%20https%3A%2F%2Fmaps.app.goo.gl%2F7PP5CeWbJTJpmfJu6%20%23PongalWedsPuttu" target="_blank" rel="noopener">Google Calendar ↗</a>
         <a href="calendar/mehndi.ics">Apple / Outlook</a>
       </div>
@@ -659,21 +729,25 @@
     <li class="event wedding">
       <a class="invite" href="images/invite-wedding.jpg" data-file="Arjith-Anjali-Wedding-27Jan2027.jpg">
         <img src="images/invite-wedding.jpg" width="1080" height="1512" loading="lazy" alt="Wedding invitation: Arjith Praison and Anjali Vijay, Wednesday 27 January 2027, 10:30 AM, CSI Karyavattom, Thiruvananthapuram, followed by lunch at TICC, Karyavattom">
-        <span class="open">Open</span>
+        <span class="open" data-i18n="open">Open</span>
       </a>
       <div class="event-top">
-        <div class="date"><span class="day">27</span><span class="label">Jan 2027<br>Wednesday</span></div>
+        <div class="date"><span class="day">27</span><span class="label" data-i18n="d_wed">Jan 2027<br>Wednesday</span></div>
         <span class="chip" data-start="2027-01-27T10:30:00+05:30"></span>
       </div>
-      <h3>Holy Matrimony</h3>
+      <h3 data-i18n="t_wedding">Holy Matrimony</h3>
       <dl class="facts">
-        <div><dt>Time</dt><dd>10:30 AM</dd></div>
-        <div><dt>Church</dt><dd>CSI Karyavattom, Thiruvananthapuram</dd></div>
-        <div><dt>Lunch</dt><dd>TICC, Karyavattom</dd></div>
+        <div><dt data-i18n="f_time">Time</dt><dd data-i18n="v_1030">10:30 AM</dd></div>
+        <div><dt data-i18n="f_church">Church</dt><dd data-i18n="v_church">CSI Karyavattom, Thiruvananthapuram</dd></div>
+        <div><dt data-i18n="f_lunch">Lunch</dt><dd data-i18n="v_ticc">TICC, Karyavattom</dd></div>
       </dl>
+      <div class="qr-block">
+        <p class="qr-title" data-i18n="qr_title">Scan for directions</p>
+        <div class="qr-row"><figure class="qr"><svg viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="QR code: map to CSI Karyavattom church"><path d="M0 0h7v1h-7zM9 0h2v1h-2zM12 0h1v1h-1zM14 0h2v1h-2zM18 0h1v1h-1zM21 0h2v1h-2zM26 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h3v1h-3zM13 1h2v1h-2zM16 1h2v1h-2zM20 1h1v1h-1zM24 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h1v1h-1zM11 2h3v1h-3zM17 2h3v1h-3zM21 2h3v1h-3zM26 2h1v1h-1zM28 2h3v1h-3zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h2v1h-2zM21 3h1v1h-1zM23 3h2v1h-2zM26 3h1v1h-1zM28 3h3v1h-3zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM9 4h2v1h-2zM13 4h1v1h-1zM15 4h1v1h-1zM17 4h2v1h-2zM21 4h3v1h-3zM26 4h1v1h-1zM28 4h3v1h-3zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h2v1h-2zM16 5h2v1h-2zM20 5h3v1h-3zM24 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h7v1h-7zM8 7h3v1h-3zM12 7h1v1h-1zM14 7h1v1h-1zM22 7h2v1h-2zM0 8h1v1h-1zM6 8h1v1h-1zM8 8h1v1h-1zM12 8h2v1h-2zM15 8h3v1h-3zM22 8h1v1h-1zM24 8h3v1h-3zM29 8h3v1h-3zM0 9h3v1h-3zM4 9h2v1h-2zM7 9h5v1h-5zM14 9h1v1h-1zM18 9h2v1h-2zM22 9h3v1h-3zM28 9h4v1h-4zM1 10h2v1h-2zM4 10h3v1h-3zM8 10h1v1h-1zM11 10h1v1h-1zM15 10h2v1h-2zM18 10h1v1h-1zM21 10h2v1h-2zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h2v1h-2zM0 11h1v1h-1zM2 11h4v1h-4zM7 11h2v1h-2zM14 11h2v1h-2zM19 11h2v1h-2zM23 11h8v1h-8zM1 12h1v1h-1zM3 12h4v1h-4zM9 12h1v1h-1zM11 12h1v1h-1zM13 12h6v1h-6zM20 12h1v1h-1zM23 12h1v1h-1zM26 12h3v1h-3zM31 12h1v1h-1zM1 13h1v1h-1zM4 13h2v1h-2zM7 13h1v1h-1zM9 13h2v1h-2zM14 13h1v1h-1zM16 13h2v1h-2zM20 13h4v1h-4zM26 13h2v1h-2zM29 13h4v1h-4zM3 14h1v1h-1zM6 14h2v1h-2zM10 14h1v1h-1zM14 14h1v1h-1zM19 14h1v1h-1zM22 14h1v1h-1zM25 14h2v1h-2zM28 14h4v1h-4zM0 15h1v1h-1zM3 15h1v1h-1zM7 15h2v1h-2zM11 15h1v1h-1zM15 15h1v1h-1zM19 15h1v1h-1zM24 15h2v1h-2zM29 15h2v1h-2zM32 15h1v1h-1zM0 16h2v1h-2zM4 16h5v1h-5zM10 16h1v1h-1zM17 16h3v1h-3zM22 16h1v1h-1zM25 16h1v1h-1zM27 16h3v1h-3zM32 16h1v1h-1zM0 17h1v1h-1zM5 17h1v1h-1zM7 17h3v1h-3zM12 17h1v1h-1zM16 17h4v1h-4zM23 17h1v1h-1zM26 17h1v1h-1zM29 17h2v1h-2zM32 17h1v1h-1zM1 18h1v1h-1zM4 18h1v1h-1zM6 18h1v1h-1zM12 18h4v1h-4zM19 18h1v1h-1zM21 18h1v1h-1zM23 18h5v1h-5zM29 18h2v1h-2zM32 18h1v1h-1zM0 19h2v1h-2zM4 19h1v1h-1zM7 19h1v1h-1zM9 19h1v1h-1zM11 19h1v1h-1zM14 19h1v1h-1zM16 19h3v1h-3zM20 19h1v1h-1zM24 19h2v1h-2zM28 19h5v1h-5zM0 20h2v1h-2zM3 20h2v1h-2zM6 20h1v1h-1zM9 20h2v1h-2zM12 20h1v1h-1zM16 20h1v1h-1zM22 20h1v1h-1zM24 20h2v1h-2zM27 20h3v1h-3zM0 21h5v1h-5zM7 21h2v1h-2zM10 21h1v1h-1zM13 21h2v1h-2zM16 21h3v1h-3zM20 21h4v1h-4zM25 21h1v1h-1zM28 21h1v1h-1zM30 21h1v1h-1zM0 22h1v1h-1zM3 22h4v1h-4zM9 22h1v1h-1zM11 22h1v1h-1zM15 22h3v1h-3zM22 22h1v1h-1zM25 22h3v1h-3zM31 22h1v1h-1zM0 23h1v1h-1zM5 23h1v1h-1zM7 23h1v1h-1zM9 23h1v1h-1zM11 23h1v1h-1zM14 23h1v1h-1zM22 23h1v1h-1zM24 23h2v1h-2zM28 23h4v1h-4zM0 24h2v1h-2zM3 24h1v1h-1zM5 24h2v1h-2zM8 24h3v1h-3zM12 24h4v1h-4zM18 24h3v1h-3zM24 24h6v1h-6zM31 24h2v1h-2zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM19 25h3v1h-3zM23 25h2v1h-2zM28 25h1v1h-1zM30 25h1v1h-1zM0 26h7v1h-7zM9 26h2v1h-2zM12 26h1v1h-1zM15 26h2v1h-2zM18 26h1v1h-1zM22 26h3v1h-3zM26 26h1v1h-1zM28 26h1v1h-1zM30 26h2v1h-2zM0 27h1v1h-1zM6 27h1v1h-1zM9 27h3v1h-3zM13 27h2v1h-2zM16 27h1v1h-1zM23 27h2v1h-2zM28 27h4v1h-4zM0 28h1v1h-1zM2 28h3v1h-3zM6 28h1v1h-1zM9 28h1v1h-1zM14 28h2v1h-2zM18 28h2v1h-2zM22 28h1v1h-1zM24 28h6v1h-6zM32 28h1v1h-1zM0 29h1v1h-1zM2 29h3v1h-3zM6 29h1v1h-1zM10 29h1v1h-1zM12 29h2v1h-2zM16 29h2v1h-2zM23 29h3v1h-3zM27 29h2v1h-2zM30 29h3v1h-3zM0 30h1v1h-1zM2 30h3v1h-3zM6 30h1v1h-1zM9 30h1v1h-1zM11 30h2v1h-2zM16 30h1v1h-1zM19 30h1v1h-1zM23 30h3v1h-3zM27 30h2v1h-2zM31 30h2v1h-2zM0 31h1v1h-1zM6 31h1v1h-1zM9 31h2v1h-2zM13 31h1v1h-1zM15 31h2v1h-2zM20 31h1v1h-1zM22 31h2v1h-2zM27 31h4v1h-4zM0 32h7v1h-7zM8 32h2v1h-2zM11 32h2v1h-2zM16 32h2v1h-2zM19 32h1v1h-1zM22 32h3v1h-3zM26 32h2v1h-2zM31 32h1v1h-1z"/></svg><figcaption data-i18n="qr_church">Church</figcaption></figure><figure class="qr"><svg viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="QR code: map to TICC, Karyavattom"><path d="M0 0h7v1h-7zM8 0h4v1h-4zM13 0h4v1h-4zM19 0h5v1h-5zM27 0h2v1h-2zM30 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM9 1h3v1h-3zM14 1h6v1h-6zM21 1h2v1h-2zM24 1h1v1h-1zM30 1h1v1h-1zM36 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM13 2h2v1h-2zM17 2h2v1h-2zM21 2h1v1h-1zM23 2h2v1h-2zM26 2h1v1h-1zM30 2h1v1h-1zM32 2h3v1h-3zM36 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h3v1h-3zM13 3h4v1h-4zM18 3h1v1h-1zM23 3h4v1h-4zM28 3h1v1h-1zM30 3h1v1h-1zM32 3h3v1h-3zM36 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h3v1h-3zM12 4h2v1h-2zM17 4h2v1h-2zM22 4h7v1h-7zM30 4h1v1h-1zM32 4h3v1h-3zM36 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h2v1h-2zM11 5h2v1h-2zM15 5h3v1h-3zM19 5h3v1h-3zM25 5h1v1h-1zM28 5h1v1h-1zM30 5h1v1h-1zM36 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h1v1h-1zM30 6h7v1h-7zM8 7h2v1h-2zM11 7h4v1h-4zM19 7h4v1h-4zM24 7h1v1h-1zM0 8h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM12 8h2v1h-2zM15 8h2v1h-2zM20 8h4v1h-4zM27 8h1v1h-1zM29 8h5v1h-5zM36 8h1v1h-1zM0 9h1v1h-1zM7 9h1v1h-1zM9 9h1v1h-1zM12 9h2v1h-2zM17 9h3v1h-3zM23 9h1v1h-1zM25 9h4v1h-4zM31 9h2v1h-2zM35 9h1v1h-1zM1 10h2v1h-2zM4 10h6v1h-6zM12 10h1v1h-1zM15 10h1v1h-1zM18 10h2v1h-2zM21 10h3v1h-3zM25 10h3v1h-3zM30 10h1v1h-1zM34 10h1v1h-1zM0 11h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h2v1h-2zM10 11h1v1h-1zM12 11h10v1h-10zM24 11h1v1h-1zM26 11h2v1h-2zM31 11h2v1h-2zM34 11h2v1h-2zM0 12h1v1h-1zM2 12h1v1h-1zM6 12h4v1h-4zM12 12h2v1h-2zM17 12h1v1h-1zM20 12h2v1h-2zM23 12h2v1h-2zM29 12h3v1h-3zM33 12h4v1h-4zM3 13h3v1h-3zM8 13h9v1h-9zM22 13h3v1h-3zM26 13h3v1h-3zM32 13h2v1h-2zM0 14h1v1h-1zM2 14h3v1h-3zM6 14h1v1h-1zM10 14h1v1h-1zM13 14h1v1h-1zM15 14h3v1h-3zM20 14h2v1h-2zM23 14h2v1h-2zM27 14h1v1h-1zM29 14h6v1h-6zM2 15h1v1h-1zM7 15h1v1h-1zM9 15h3v1h-3zM13 15h3v1h-3zM17 15h2v1h-2zM21 15h1v1h-1zM23 15h2v1h-2zM26 15h1v1h-1zM30 15h3v1h-3zM34 15h3v1h-3zM0 16h4v1h-4zM6 16h1v1h-1zM9 16h1v1h-1zM18 16h2v1h-2zM23 16h2v1h-2zM29 16h3v1h-3zM33 16h3v1h-3zM2 17h2v1h-2zM5 17h1v1h-1zM13 17h2v1h-2zM16 17h1v1h-1zM19 17h3v1h-3zM23 17h1v1h-1zM26 17h3v1h-3zM30 17h1v1h-1zM32 17h2v1h-2zM35 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM6 18h2v1h-2zM9 18h1v1h-1zM11 18h2v1h-2zM14 18h1v1h-1zM16 18h1v1h-1zM20 18h2v1h-2zM23 18h2v1h-2zM26 18h4v1h-4zM31 18h1v1h-1zM33 18h2v1h-2zM0 19h1v1h-1zM4 19h1v1h-1zM7 19h2v1h-2zM13 19h2v1h-2zM17 19h1v1h-1zM21 19h1v1h-1zM23 19h2v1h-2zM34 19h2v1h-2zM1 20h1v1h-1zM5 20h2v1h-2zM9 20h2v1h-2zM12 20h1v1h-1zM14 20h4v1h-4zM19 20h2v1h-2zM22 20h1v1h-1zM24 20h1v1h-1zM29 20h3v1h-3zM34 20h1v1h-1zM1 21h5v1h-5zM7 21h4v1h-4zM12 21h1v1h-1zM15 21h4v1h-4zM22 21h2v1h-2zM26 21h4v1h-4zM31 21h2v1h-2zM1 22h1v1h-1zM4 22h1v1h-1zM6 22h4v1h-4zM13 22h1v1h-1zM15 22h2v1h-2zM18 22h1v1h-1zM21 22h9v1h-9zM31 22h4v1h-4zM3 23h1v1h-1zM8 23h2v1h-2zM11 23h1v1h-1zM13 23h2v1h-2zM19 23h4v1h-4zM24 23h1v1h-1zM26 23h1v1h-1zM30 23h3v1h-3zM34 23h3v1h-3zM0 24h1v1h-1zM3 24h2v1h-2zM6 24h1v1h-1zM9 24h8v1h-8zM19 24h2v1h-2zM23 24h2v1h-2zM27 24h5v1h-5zM33 24h2v1h-2zM36 24h1v1h-1zM0 25h3v1h-3zM5 25h1v1h-1zM8 25h2v1h-2zM12 25h1v1h-1zM18 25h2v1h-2zM23 25h1v1h-1zM25 25h4v1h-4zM32 25h1v1h-1zM34 25h1v1h-1zM3 26h1v1h-1zM6 26h1v1h-1zM11 26h2v1h-2zM15 26h1v1h-1zM17 26h3v1h-3zM21 26h1v1h-1zM23 26h2v1h-2zM26 26h4v1h-4zM32 26h1v1h-1zM34 26h1v1h-1zM4 27h2v1h-2zM7 27h1v1h-1zM11 27h1v1h-1zM13 27h10v1h-10zM26 27h1v1h-1zM29 27h1v1h-1zM31 27h2v1h-2zM34 27h1v1h-1zM0 28h2v1h-2zM3 28h2v1h-2zM6 28h2v1h-2zM9 28h1v1h-1zM11 28h1v1h-1zM13 28h1v1h-1zM17 28h2v1h-2zM21 28h2v1h-2zM24 28h1v1h-1zM26 28h7v1h-7zM34 28h3v1h-3zM8 29h2v1h-2zM11 29h2v1h-2zM15 29h2v1h-2zM18 29h1v1h-1zM21 29h3v1h-3zM26 29h1v1h-1zM28 29h1v1h-1zM32 29h1v1h-1zM35 29h1v1h-1zM0 30h7v1h-7zM8 30h3v1h-3zM12 30h4v1h-4zM17 30h1v1h-1zM20 30h1v1h-1zM23 30h4v1h-4zM28 30h1v1h-1zM30 30h1v1h-1zM32 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM10 31h2v1h-2zM14 31h5v1h-5zM22 31h1v1h-1zM27 31h2v1h-2zM32 31h3v1h-3zM0 32h1v1h-1zM2 32h3v1h-3zM6 32h1v1h-1zM8 32h2v1h-2zM12 32h1v1h-1zM15 32h1v1h-1zM18 32h2v1h-2zM22 32h1v1h-1zM24 32h1v1h-1zM26 32h1v1h-1zM28 32h9v1h-9zM0 33h1v1h-1zM2 33h3v1h-3zM6 33h1v1h-1zM10 33h1v1h-1zM13 33h2v1h-2zM16 33h2v1h-2zM19 33h2v1h-2zM26 33h6v1h-6zM33 33h2v1h-2zM36 33h1v1h-1zM0 34h1v1h-1zM2 34h3v1h-3zM6 34h1v1h-1zM10 34h2v1h-2zM14 34h1v1h-1zM16 34h1v1h-1zM20 34h1v1h-1zM22 34h7v1h-7zM30 34h1v1h-1zM0 35h1v1h-1zM6 35h1v1h-1zM12 35h3v1h-3zM17 35h2v1h-2zM21 35h2v1h-2zM27 35h1v1h-1zM30 35h1v1h-1zM32 35h1v1h-1zM34 35h2v1h-2zM0 36h7v1h-7zM8 36h3v1h-3zM12 36h2v1h-2zM15 36h1v1h-1zM19 36h6v1h-6zM27 36h1v1h-1zM29 36h1v1h-1zM31 36h1v1h-1zM34 36h3v1h-3z"/></svg><figcaption data-i18n="qr_ticc">Lunch · TICC</figcaption></figure></div>
+      </div>
       <div class="links">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=CSI%20Church%20Karyavattom%20Thiruvananthapuram" target="_blank" rel="noopener">Church map ↗</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Travancore%20International%20Convention%20Centre%20Karyavattom" target="_blank" rel="noopener">TICC map ↗</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=CSI%20Church%20Karyavattom%20Thiruvananthapuram" target="_blank" rel="noopener" data-i18n="l_church_map">Church map ↗</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Travancore%20International%20Convention%20Centre%20Karyavattom" target="_blank" rel="noopener" data-i18n="l_ticc_map">TICC map ↗</a>
         <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Wedding%20of%20Arjith%20%26%20Anjali&amp;dates=20270127T050000Z/20270127T093000Z&amp;location=CSI%20Karyavattom%2C%20Thiruvananthapuram&amp;details=Holy%20Matrimony%20at%2010%3A30%20AM%2C%20followed%20by%20lunch%20at%20TICC%2C%20Karyavattom.%20%23PongalWedsPuttu" target="_blank" rel="noopener">Google Calendar ↗</a>
         <a href="calendar/wedding.ics">Apple / Outlook</a>
       </div>
@@ -682,19 +756,23 @@
     <li class="event reception">
       <a class="invite" href="images/invite-reception.jpg" data-file="Arjith-Anjali-Reception-30Jan2027.jpg">
         <img src="images/invite-reception.jpg" width="1080" height="1512" loading="lazy" alt="Wedding Reception invitation: Arjith and Anjali, Saturday 30 January 2027, 5:00 PM, Buhari's Blue Lagoon, Neelankarai, Chennai">
-        <span class="open">Open</span>
+        <span class="open" data-i18n="open">Open</span>
       </a>
       <div class="event-top">
-        <div class="date"><span class="day">30</span><span class="label">Jan 2027<br>Saturday</span></div>
+        <div class="date"><span class="day">30</span><span class="label" data-i18n="d_sat">Jan 2027<br>Saturday</span></div>
         <span class="chip" data-start="2027-01-30T17:00:00+05:30"></span>
       </div>
-      <h3>Wedding Reception</h3>
+      <h3 data-i18n="t_reception">Wedding Reception</h3>
       <dl class="facts">
-        <div><dt>Time</dt><dd>5:00 PM</dd></div>
-        <div><dt>Venue</dt><dd>Buhari’s Blue Lagoon, Neelankarai (ECR), Chennai</dd></div>
+        <div><dt data-i18n="f_time">Time</dt><dd data-i18n="v_5pm">5:00 PM</dd></div>
+        <div><dt data-i18n="f_venue">Venue</dt><dd data-i18n="v_lagoon">Buhari’s Blue Lagoon, Neelankarai (ECR), Chennai</dd></div>
       </dl>
+      <div class="qr-block">
+        <p class="qr-title" data-i18n="qr_title">Scan for directions</p>
+        <div class="qr-row"><figure class="qr"><svg viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="QR code: map to Buhari’s Blue Lagoon, Neelankarai"><path d="M0 0h7v1h-7zM8 0h1v1h-1zM14 0h1v1h-1zM17 0h2v1h-2zM21 0h2v1h-2zM26 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM10 1h2v1h-2zM13 1h2v1h-2zM16 1h1v1h-1zM19 1h1v1h-1zM24 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h1v1h-1zM13 2h3v1h-3zM21 2h1v1h-1zM23 2h1v1h-1zM26 2h1v1h-1zM28 2h3v1h-3zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM11 3h2v1h-2zM14 3h1v1h-1zM16 3h2v1h-2zM20 3h2v1h-2zM23 3h2v1h-2zM26 3h1v1h-1zM28 3h3v1h-3zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h4v1h-4zM13 4h2v1h-2zM16 4h1v1h-1zM18 4h2v1h-2zM21 4h1v1h-1zM26 4h1v1h-1zM28 4h3v1h-3zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h4v1h-4zM20 5h2v1h-2zM23 5h2v1h-2zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h7v1h-7zM9 7h2v1h-2zM13 7h2v1h-2zM19 7h1v1h-1zM22 7h1v1h-1zM0 8h1v1h-1zM3 8h6v1h-6zM10 8h3v1h-3zM14 8h2v1h-2zM17 8h1v1h-1zM19 8h1v1h-1zM23 8h3v1h-3zM28 8h1v1h-1zM30 8h3v1h-3zM0 9h2v1h-2zM5 9h1v1h-1zM7 9h1v1h-1zM10 9h3v1h-3zM14 9h2v1h-2zM17 9h3v1h-3zM22 9h3v1h-3zM28 9h3v1h-3zM0 10h3v1h-3zM4 10h1v1h-1zM6 10h2v1h-2zM10 10h1v1h-1zM12 10h1v1h-1zM14 10h2v1h-2zM17 10h1v1h-1zM20 10h1v1h-1zM22 10h2v1h-2zM26 10h1v1h-1zM28 10h3v1h-3zM32 10h1v1h-1zM0 11h2v1h-2zM4 11h1v1h-1zM8 11h1v1h-1zM11 11h2v1h-2zM15 11h6v1h-6zM24 11h1v1h-1zM26 11h2v1h-2zM30 11h2v1h-2zM0 12h3v1h-3zM4 12h1v1h-1zM6 12h3v1h-3zM10 12h1v1h-1zM12 12h5v1h-5zM20 12h1v1h-1zM23 12h2v1h-2zM26 12h3v1h-3zM31 12h1v1h-1zM1 13h3v1h-3zM7 13h1v1h-1zM10 13h9v1h-9zM21 13h1v1h-1zM25 13h1v1h-1zM27 13h1v1h-1zM29 13h2v1h-2zM2 14h6v1h-6zM10 14h1v1h-1zM12 14h2v1h-2zM15 14h2v1h-2zM19 14h1v1h-1zM26 14h1v1h-1zM29 14h2v1h-2zM2 15h4v1h-4zM7 15h1v1h-1zM9 15h4v1h-4zM14 15h3v1h-3zM19 15h1v1h-1zM23 15h3v1h-3zM30 15h1v1h-1zM32 15h1v1h-1zM2 16h1v1h-1zM5 16h2v1h-2zM8 16h1v1h-1zM11 16h1v1h-1zM14 16h2v1h-2zM18 16h3v1h-3zM22 16h1v1h-1zM25 16h4v1h-4zM1 17h1v1h-1zM4 17h2v1h-2zM7 17h3v1h-3zM13 17h2v1h-2zM17 17h3v1h-3zM21 17h2v1h-2zM26 17h1v1h-1zM28 17h1v1h-1zM30 17h1v1h-1zM32 17h1v1h-1zM0 18h9v1h-9zM10 18h1v1h-1zM15 18h1v1h-1zM17 18h3v1h-3zM23 18h2v1h-2zM27 18h1v1h-1zM29 18h2v1h-2zM32 18h1v1h-1zM2 19h1v1h-1zM7 19h6v1h-6zM14 19h1v1h-1zM16 19h1v1h-1zM19 19h1v1h-1zM22 19h1v1h-1zM24 19h3v1h-3zM28 19h4v1h-4zM0 20h1v1h-1zM6 20h2v1h-2zM9 20h1v1h-1zM11 20h1v1h-1zM13 20h1v1h-1zM17 20h1v1h-1zM19 20h1v1h-1zM24 20h1v1h-1zM27 20h1v1h-1zM29 20h1v1h-1zM31 20h1v1h-1zM0 21h3v1h-3zM9 21h3v1h-3zM13 21h3v1h-3zM17 21h2v1h-2zM21 21h5v1h-5zM28 21h1v1h-1zM30 21h1v1h-1zM0 22h1v1h-1zM4 22h4v1h-4zM10 22h2v1h-2zM13 22h1v1h-1zM15 22h2v1h-2zM22 22h2v1h-2zM25 22h1v1h-1zM28 22h2v1h-2zM31 22h2v1h-2zM0 23h1v1h-1zM2 23h2v1h-2zM7 23h4v1h-4zM16 23h2v1h-2zM19 23h1v1h-1zM23 23h1v1h-1zM25 23h1v1h-1zM28 23h4v1h-4zM0 24h7v1h-7zM9 24h2v1h-2zM13 24h1v1h-1zM15 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM23 24h6v1h-6zM8 25h1v1h-1zM10 25h4v1h-4zM15 25h1v1h-1zM17 25h1v1h-1zM21 25h1v1h-1zM23 25h2v1h-2zM28 25h1v1h-1zM30 25h1v1h-1zM0 26h7v1h-7zM8 26h1v1h-1zM10 26h3v1h-3zM14 26h2v1h-2zM17 26h1v1h-1zM19 26h1v1h-1zM23 26h2v1h-2zM26 26h1v1h-1zM28 26h1v1h-1zM30 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h1v1h-1zM11 27h1v1h-1zM14 27h1v1h-1zM16 27h1v1h-1zM18 27h1v1h-1zM23 27h2v1h-2zM28 27h5v1h-5zM0 28h1v1h-1zM2 28h3v1h-3zM6 28h1v1h-1zM8 28h3v1h-3zM14 28h2v1h-2zM19 28h2v1h-2zM22 28h7v1h-7zM32 28h1v1h-1zM0 29h1v1h-1zM2 29h3v1h-3zM6 29h1v1h-1zM8 29h1v1h-1zM12 29h2v1h-2zM15 29h1v1h-1zM18 29h2v1h-2zM22 29h1v1h-1zM24 29h2v1h-2zM27 29h1v1h-1zM30 29h3v1h-3zM0 30h1v1h-1zM2 30h3v1h-3zM6 30h1v1h-1zM9 30h1v1h-1zM13 30h1v1h-1zM15 30h1v1h-1zM19 30h2v1h-2zM23 30h3v1h-3zM27 30h2v1h-2zM31 30h2v1h-2zM0 31h1v1h-1zM6 31h1v1h-1zM9 31h3v1h-3zM14 31h2v1h-2zM22 31h1v1h-1zM26 31h7v1h-7zM0 32h7v1h-7zM8 32h1v1h-1zM10 32h1v1h-1zM12 32h2v1h-2zM17 32h1v1h-1zM23 32h2v1h-2zM27 32h3v1h-3z"/></svg><figcaption data-i18n="qr_lagoon">Blue Lagoon</figcaption></figure></div>
+      </div>
       <div class="links">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Buhari%27s%20Blue%20Lagoon%20Neelankarai%20Chennai" target="_blank" rel="noopener">Venue map ↗</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Buhari%27s%20Blue%20Lagoon%20Neelankarai%20Chennai" target="_blank" rel="noopener" data-i18n="l_venue_map">Venue map ↗</a>
         <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Wedding%20Reception%20%E2%80%93%20Arjith%20%26%20Anjali&amp;dates=20270130T113000Z/20270130T163000Z&amp;location=Buhari%27s%20Blue%20Lagoon%2C%205%2F72%20Raja%20Nagar%2C%20Neelankarai%2C%20ECR%2C%20Chennai%20600115&amp;details=%23PongalWedsPuttu" target="_blank" rel="noopener">Google Calendar ↗</a>
         <a href="calendar/reception.ics">Apple / Outlook</a>
       </div>
@@ -704,21 +782,21 @@
 
 <section class="tag-band" aria-labelledby="tag-title">
   <div class="wrap">
-    <p class="label">Share your photos with</p>
+    <p class="label" data-i18n="tag_eyebrow">Share your photos with</p>
     <h2 class="hashtag" id="tag-title"><span id="hashtag">#PongalWedsPuttu</span></h2>
-    <p>Chennai’s pongal meets Thiruvananthapuram’s puttu. Tag your pictures so we can find every one of them.</p>
-    <button class="copy" id="copy-btn" type="button">Copy hashtag</button>
+    <p data-i18n="tag_text">Chennai’s pongal meets Thiruvananthapuram’s puttu. Tag your pictures so we can find every one of them.</p>
+    <button class="copy" id="copy-btn" type="button" data-i18n="copy">Copy hashtag</button>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">With love and prayers, the families of Arjith &amp; Anjali</div>
+  <div class="wrap" data-i18n="footer">With love and prayers, the families of Arjith &amp; Anjali</div>
 </footer>
 
 <div class="walk" id="walk" aria-hidden="true">
   <div class="walk-road"></div>
-  <div class="state kerala"><span class="state-name">Kerala</span><svg viewBox="0 0 248.7 449.3"><path d="M12.7 0.3L11.6 6.1L18.0 7.6L17.8 13.1L21.3 12.4L21.6 9.3L27.9 11.4L27.2 15.8L32.9 16.6L35.0 22.8L40.3 17.9L45.4 20.6L39.8 23.7L46.2 33.3L53.9 29.4L54.7 33.1L49.2 33.9L49.1 38.4L54.6 42.4L54.3 50.4L60.6 50.5L69.8 64.0L75.6 64.8L83.6 72.9L91.3 71.7L94.4 81.3L99.3 85.0L111.3 86.7L122.1 82.0L122.9 94.8L129.5 92.7L132.9 99.1L138.2 98.7L144.4 106.0L151.5 103.7L150.4 109.0L154.1 115.7L140.7 122.6L138.1 119.8L133.6 122.6L135.1 133.1L138.8 131.6L151.8 135.7L155.5 140.9L164.4 143.9L164.6 149.8L155.3 156.0L156.0 161.1L159.4 158.8L172.7 160.5L180.0 155.9L182.8 158.2L179.4 164.6L184.1 167.0L183.9 174.3L189.4 174.8L180.9 175.9L175.3 186.7L191.8 192.9L199.7 202.0L195.6 211.6L197.2 216.1L190.6 216.4L193.0 220.6L192.0 249.6L206.9 258.2L225.8 244.5L231.6 245.1L234.0 257.0L237.3 258.4L235.3 267.2L228.2 269.8L235.5 282.7L229.9 289.6L232.8 300.2L224.7 318.5L234.8 322.6L239.7 319.8L241.7 322.8L243.3 319.6L244.2 326.5L248.7 329.4L236.0 350.0L234.5 364.8L227.7 375.4L222.8 377.9L233.5 392.6L230.9 401.5L225.0 405.3L235.8 424.8L234.1 428.9L228.1 429.7L230.4 435.3L223.0 441.2L225.5 447.8L218.7 449.3L207.4 440.6L173.6 395.5L165.2 388.8L157.0 365.7L159.0 366.4L159.7 362.1L157.7 364.8L153.0 354.5L156.7 365.0L142.0 326.7L135.9 282.1L140.5 287.3L140.6 289.8L136.8 287.5L138.0 292.5L139.7 289.2L139.4 295.8L140.5 290.1L142.8 291.5L145.4 307.8L142.9 292.0L147.9 297.1L146.9 309.0L150.7 311.7L146.6 326.5L160.8 326.0L152.5 323.1L148.6 292.6L144.9 287.1L145.2 290.6L142.8 290.2L136.0 276.1L135.1 272.0L136.7 274.5L137.5 271.2L133.6 266.4L135.0 271.6L132.2 264.7L135.6 281.8L133.5 281.4L127.8 261.6L131.4 265.2L130.3 259.6L127.2 260.2L114.8 226.5L118.1 224.6L115.5 221.5L114.7 227.7L102.6 199.8L94.3 166.8L97.5 165.2L94.2 166.5L92.0 163.3L94.6 161.0L92.0 162.8L80.2 134.3L73.8 131.4L66.5 110.9L59.5 102.7L63.0 103.0L59.8 102.4L62.3 99.3L57.7 102.1L58.4 98.3L57.1 100.9L42.5 84.7L52.4 87.5L50.0 83.4L48.4 85.9L44.4 84.5L39.2 78.4L45.9 78.1L42.6 77.5L46.5 74.3L43.3 75.7L43.5 68.8L52.7 65.4L45.1 64.6L40.1 69.1L35.1 68.6L35.8 76.6L32.8 78.3L30.7 71.0L34.8 72.1L30.1 70.5L32.0 65.8L31.7 69.5L29.0 67.2L0.0 3.8L12.7 0.3Z"/></svg></div>
-  <div class="state tamilnadu"><span class="state-name">Tamil Nadu</span><svg viewBox="0 0 405.2 546.1"><path d="M378.6 1.1L386.1 5.9L394.8 6.7L401.8 16.8L403.2 9.5L405.0 26.4L401.2 32.2L403.9 30.3L397.3 52.4L395.5 73.2L394.0 69.1L396.1 75.9L389.3 96.0L387.3 93.4L389.3 96.3L386.4 107.1L376.1 121.2L376.8 117.0L372.8 119.7L377.3 118.7L372.0 128.1L365.7 131.7L371.8 128.4L355.1 159.7L351.4 157.3L345.2 163.0L343.2 157.0L346.5 155.1L342.2 156.0L339.5 151.8L335.9 156.2L341.5 156.6L339.5 160.1L344.1 164.6L340.8 165.9L339.9 163.3L337.6 167.2L341.2 166.4L344.3 170.5L346.5 167.7L346.7 171.3L349.6 169.7L351.5 173.0L347.2 197.4L355.2 218.1L356.0 229.4L351.9 230.1L356.1 229.5L356.9 256.0L344.7 255.1L346.1 259.4L342.0 258.6L342.0 261.9L352.3 267.0L352.8 272.4L356.5 272.4L359.6 323.5L345.8 326.2L350.0 325.7L349.3 323.5L335.4 321.9L334.7 317.4L333.1 322.0L327.2 322.7L344.6 326.4L324.6 323.2L330.7 320.5L326.4 319.0L324.5 321.9L317.6 319.6L323.2 322.9L310.7 322.1L301.8 327.7L295.3 339.3L299.1 350.0L271.0 384.7L262.8 404.9L276.2 421.9L291.5 425.6L256.5 429.2L256.3 426.9L256.3 429.4L245.1 434.7L239.1 434.5L239.1 438.0L231.3 440.6L222.0 441.0L222.5 438.7L210.4 444.6L200.1 451.9L191.0 465.6L189.9 476.6L194.0 474.9L197.1 478.9L191.2 479.2L184.8 488.6L183.9 495.6L187.8 494.6L184.5 494.5L187.0 489.9L188.1 494.9L187.3 504.1L180.9 511.7L181.0 516.7L155.2 528.9L149.5 536.1L132.7 540.2L130.3 546.1L107.2 541.7L85.0 524.0L91.8 522.5L89.4 515.9L96.7 510.0L94.5 504.4L100.5 503.6L102.2 500.0L91.4 480.0L97.2 476.2L99.9 467.3L89.1 452.6L94.0 450.1L100.9 439.5L102.4 424.7L115.1 404.1L110.6 401.1L109.6 394.3L108.1 397.4L106.0 394.5L101.2 397.3L91.1 393.2L99.1 374.9L96.2 364.3L101.8 357.4L94.6 344.2L101.7 341.9L103.7 333.0L100.4 331.7L98.0 319.7L92.2 319.1L73.3 332.9L58.4 324.2L59.4 295.3L57.0 291.1L63.6 290.8L61.9 286.2L66.1 276.7L58.2 267.6L41.6 261.3L47.3 250.6L55.7 249.5L50.3 249.0L50.4 241.6L45.8 239.3L49.1 232.9L46.3 230.6L39.1 235.2L25.8 233.5L22.3 235.7L21.7 230.7L30.9 224.5L30.7 218.6L21.9 215.6L18.2 210.4L5.1 206.3L1.4 207.8L0.0 197.3L4.4 194.5L7.1 197.3L12.2 195.5L27.4 184.0L32.9 192.7L51.2 192.7L60.1 196.3L59.3 189.3L66.3 175.4L72.2 177.2L76.6 173.5L86.9 182.5L86.2 177.4L99.9 173.5L117.4 178.7L123.8 160.5L141.5 159.8L151.5 142.8L146.9 136.6L123.6 134.7L121.7 129.4L135.7 117.7L137.6 106.0L132.7 106.9L135.8 103.8L132.2 98.0L134.2 88.0L148.0 87.4L154.7 75.1L153.3 70.4L157.3 67.9L167.0 66.0L165.7 71.8L169.1 68.8L172.6 74.2L175.9 69.2L179.0 69.5L186.3 76.8L196.1 78.5L196.8 82.2L193.1 85.6L200.5 84.6L210.7 92.6L219.2 92.6L219.5 87.5L224.6 83.9L222.1 80.3L228.3 85.2L228.1 79.4L238.0 61.9L234.8 55.9L238.5 52.0L242.7 53.3L243.5 48.1L260.6 45.1L261.2 51.8L265.4 51.9L262.3 50.2L264.4 47.0L270.8 46.1L279.6 52.3L287.8 53.0L294.2 40.2L299.1 39.6L303.1 44.1L307.6 40.8L307.0 37.5L314.4 35.0L316.6 32.1L313.2 32.5L314.6 25.6L309.6 23.5L314.9 21.4L325.5 22.7L329.8 29.2L338.5 25.6L340.5 33.0L343.9 31.6L346.0 34.3L350.0 31.4L343.7 26.5L363.8 20.2L367.4 8.6L374.6 5.3L370.1 1.1L378.6 1.1Z"/></svg></div>
+  <div class="state kerala"><span class="state-name" data-i18n="s_kerala">Kerala</span><svg viewBox="0 0 248.7 449.3"><path d="M12.7 0.3L11.6 6.1L18.0 7.6L17.8 13.1L21.3 12.4L21.6 9.3L27.9 11.4L27.2 15.8L32.9 16.6L35.0 22.8L40.3 17.9L45.4 20.6L39.8 23.7L46.2 33.3L53.9 29.4L54.7 33.1L49.2 33.9L49.1 38.4L54.6 42.4L54.3 50.4L60.6 50.5L69.8 64.0L75.6 64.8L83.6 72.9L91.3 71.7L94.4 81.3L99.3 85.0L111.3 86.7L122.1 82.0L122.9 94.8L129.5 92.7L132.9 99.1L138.2 98.7L144.4 106.0L151.5 103.7L150.4 109.0L154.1 115.7L140.7 122.6L138.1 119.8L133.6 122.6L135.1 133.1L138.8 131.6L151.8 135.7L155.5 140.9L164.4 143.9L164.6 149.8L155.3 156.0L156.0 161.1L159.4 158.8L172.7 160.5L180.0 155.9L182.8 158.2L179.4 164.6L184.1 167.0L183.9 174.3L189.4 174.8L180.9 175.9L175.3 186.7L191.8 192.9L199.7 202.0L195.6 211.6L197.2 216.1L190.6 216.4L193.0 220.6L192.0 249.6L206.9 258.2L225.8 244.5L231.6 245.1L234.0 257.0L237.3 258.4L235.3 267.2L228.2 269.8L235.5 282.7L229.9 289.6L232.8 300.2L224.7 318.5L234.8 322.6L239.7 319.8L241.7 322.8L243.3 319.6L244.2 326.5L248.7 329.4L236.0 350.0L234.5 364.8L227.7 375.4L222.8 377.9L233.5 392.6L230.9 401.5L225.0 405.3L235.8 424.8L234.1 428.9L228.1 429.7L230.4 435.3L223.0 441.2L225.5 447.8L218.7 449.3L207.4 440.6L173.6 395.5L165.2 388.8L157.0 365.7L159.0 366.4L159.7 362.1L157.7 364.8L153.0 354.5L156.7 365.0L142.0 326.7L135.9 282.1L140.5 287.3L140.6 289.8L136.8 287.5L138.0 292.5L139.7 289.2L139.4 295.8L140.5 290.1L142.8 291.5L145.4 307.8L142.9 292.0L147.9 297.1L146.9 309.0L150.7 311.7L146.6 326.5L160.8 326.0L152.5 323.1L148.6 292.6L144.9 287.1L145.2 290.6L142.8 290.2L136.0 276.1L135.1 272.0L136.7 274.5L137.5 271.2L133.6 266.4L135.0 271.6L132.2 264.7L135.6 281.8L133.5 281.4L127.8 261.6L131.4 265.2L130.3 259.6L127.2 260.2L114.8 226.5L118.1 224.6L115.5 221.5L114.7 227.7L102.6 199.8L94.3 166.8L97.5 165.2L94.2 166.5L92.0 163.3L94.6 161.0L92.0 162.8L80.2 134.3L73.8 131.4L66.5 110.9L59.5 102.7L63.0 103.0L59.8 102.4L62.3 99.3L57.7 102.1L58.4 98.3L57.1 100.9L42.5 84.7L52.4 87.5L50.0 83.4L48.4 85.9L44.4 84.5L39.2 78.4L45.9 78.1L42.6 77.5L46.5 74.3L43.3 75.7L43.5 68.8L52.7 65.4L45.1 64.6L40.1 69.1L35.1 68.6L35.8 76.6L32.8 78.3L30.7 71.0L34.8 72.1L30.1 70.5L32.0 65.8L31.7 69.5L29.0 67.2L0.0 3.8L12.7 0.3Z"/></svg></div>
+  <div class="state tamilnadu"><span class="state-name" data-i18n="s_tn">Tamil Nadu</span><svg viewBox="0 0 405.2 546.1"><path d="M378.6 1.1L386.1 5.9L394.8 6.7L401.8 16.8L403.2 9.5L405.0 26.4L401.2 32.2L403.9 30.3L397.3 52.4L395.5 73.2L394.0 69.1L396.1 75.9L389.3 96.0L387.3 93.4L389.3 96.3L386.4 107.1L376.1 121.2L376.8 117.0L372.8 119.7L377.3 118.7L372.0 128.1L365.7 131.7L371.8 128.4L355.1 159.7L351.4 157.3L345.2 163.0L343.2 157.0L346.5 155.1L342.2 156.0L339.5 151.8L335.9 156.2L341.5 156.6L339.5 160.1L344.1 164.6L340.8 165.9L339.9 163.3L337.6 167.2L341.2 166.4L344.3 170.5L346.5 167.7L346.7 171.3L349.6 169.7L351.5 173.0L347.2 197.4L355.2 218.1L356.0 229.4L351.9 230.1L356.1 229.5L356.9 256.0L344.7 255.1L346.1 259.4L342.0 258.6L342.0 261.9L352.3 267.0L352.8 272.4L356.5 272.4L359.6 323.5L345.8 326.2L350.0 325.7L349.3 323.5L335.4 321.9L334.7 317.4L333.1 322.0L327.2 322.7L344.6 326.4L324.6 323.2L330.7 320.5L326.4 319.0L324.5 321.9L317.6 319.6L323.2 322.9L310.7 322.1L301.8 327.7L295.3 339.3L299.1 350.0L271.0 384.7L262.8 404.9L276.2 421.9L291.5 425.6L256.5 429.2L256.3 426.9L256.3 429.4L245.1 434.7L239.1 434.5L239.1 438.0L231.3 440.6L222.0 441.0L222.5 438.7L210.4 444.6L200.1 451.9L191.0 465.6L189.9 476.6L194.0 474.9L197.1 478.9L191.2 479.2L184.8 488.6L183.9 495.6L187.8 494.6L184.5 494.5L187.0 489.9L188.1 494.9L187.3 504.1L180.9 511.7L181.0 516.7L155.2 528.9L149.5 536.1L132.7 540.2L130.3 546.1L107.2 541.7L85.0 524.0L91.8 522.5L89.4 515.9L96.7 510.0L94.5 504.4L100.5 503.6L102.2 500.0L91.4 480.0L97.2 476.2L99.9 467.3L89.1 452.6L94.0 450.1L100.9 439.5L102.4 424.7L115.1 404.1L110.6 401.1L109.6 394.3L108.1 397.4L106.0 394.5L101.2 397.3L91.1 393.2L99.1 374.9L96.2 364.3L101.8 357.4L94.6 344.2L101.7 341.9L103.7 333.0L100.4 331.7L98.0 319.7L92.2 319.1L73.3 332.9L58.4 324.2L59.4 295.3L57.0 291.1L63.6 290.8L61.9 286.2L66.1 276.7L58.2 267.6L41.6 261.3L47.3 250.6L55.7 249.5L50.3 249.0L50.4 241.6L45.8 239.3L49.1 232.9L46.3 230.6L39.1 235.2L25.8 233.5L22.3 235.7L21.7 230.7L30.9 224.5L30.7 218.6L21.9 215.6L18.2 210.4L5.1 206.3L1.4 207.8L0.0 197.3L4.4 194.5L7.1 197.3L12.2 195.5L27.4 184.0L32.9 192.7L51.2 192.7L60.1 196.3L59.3 189.3L66.3 175.4L72.2 177.2L76.6 173.5L86.9 182.5L86.2 177.4L99.9 173.5L117.4 178.7L123.8 160.5L141.5 159.8L151.5 142.8L146.9 136.6L123.6 134.7L121.7 129.4L135.7 117.7L137.6 106.0L132.7 106.9L135.8 103.8L132.2 98.0L134.2 88.0L148.0 87.4L154.7 75.1L153.3 70.4L157.3 67.9L167.0 66.0L165.7 71.8L169.1 68.8L172.6 74.2L175.9 69.2L179.0 69.5L186.3 76.8L196.1 78.5L196.8 82.2L193.1 85.6L200.5 84.6L210.7 92.6L219.2 92.6L219.5 87.5L224.6 83.9L222.1 80.3L228.3 85.2L228.1 79.4L238.0 61.9L234.8 55.9L238.5 52.0L242.7 53.3L243.5 48.1L260.6 45.1L261.2 51.8L265.4 51.9L262.3 50.2L264.4 47.0L270.8 46.1L279.6 52.3L287.8 53.0L294.2 40.2L299.1 39.6L303.1 44.1L307.6 40.8L307.0 37.5L314.4 35.0L316.6 32.1L313.2 32.5L314.6 25.6L309.6 23.5L314.9 21.4L325.5 22.7L329.8 29.2L338.5 25.6L340.5 33.0L343.9 31.6L346.0 34.3L350.0 31.4L343.7 26.5L363.8 20.2L367.4 8.6L374.6 5.3L370.1 1.1L378.6 1.1Z"/></svg></div>
   <img class="walker bride" src="images/mini-anjali.png" width="185" height="300" alt="">
   <img class="walker groom" src="images/mini-arjith.png" width="129" height="300" alt="">
   <svg class="walk-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -727,8 +805,8 @@
 <dialog class="viewer" id="viewer" aria-label="Invitation">
   <img id="viewer-img" src="" alt="">
   <div class="viewer-actions">
-    <a class="btn" id="viewer-save" href="" download>Save image</a>
-    <button class="btn ghost" id="viewer-close" type="button">Close</button>
+    <a class="btn" id="viewer-save" href="" download data-i18n="save">Save image</a>
+    <button class="btn ghost" id="viewer-close" type="button" data-i18n="close">Close</button>
   </div>
 </dialog>
 
@@ -766,19 +844,108 @@
       var timer = setInterval(function () { if (!tick()) clearInterval(timer); }, 1000);
     }
 
+    // ---- Language: English / Tamil / Malayalam ----
+    // English is read from the page itself; these hold the Tamil and Malayalam versions.
+    var current = "en";
+    var WORDS = {
+      en: { inDays: function (n) { return "in " + n + " days"; }, tomorrow: "Tomorrow", today: "Today", celebrated: "Celebrated",
+            copy: "Copy hashtag", copied: "Copied", selected: "Selected, now copy it" },
+      ta: { inDays: function (n) { return "இன்னும் " + n + " நாட்கள்"; }, tomorrow: "நாளை", today: "இன்று", celebrated: "நடந்து முடிந்தது",
+            copy: "ஹேஷ்டேக்கை நகலெடு", copied: "நகலெடுக்கப்பட்டது", selected: "தேர்வு செய்யப்பட்டது, இப்போது நகலெடுக்கவும்" },
+      ml: { inDays: function (n) { return "ഇനി " + n + " ദിവസം"; }, tomorrow: "നാളെ", today: "ഇന്ന്", celebrated: "നടന്നു",
+            copy: "ഹാഷ്ടാഗ് കോപ്പി ചെയ്യുക", copied: "കോപ്പി ചെയ്തു", selected: "തിരഞ്ഞെടുത്തു, ഇനി കോപ്പി ചെയ്യൂ" }
+    };
+    var TEXT = {
+      ta: {
+        hero_eyebrow: "திருமண ஆராதனை · திருவனந்தபுரம்",
+        tagline: "இரு மாநிலங்கள். இரு மொழிகள். ஒரே அன்பு.",
+        invite: "எங்கள் குடும்பத்தினருடன் இணைந்து, எங்கள் திருமணத்திற்கு உங்களை அன்புடன் அழைக்கிறோம்.",
+        when: "எப்போது",
+        where: "எங்கே",
+        when_val: '<strong>புதன்கிழமை, 27 ஜனவரி 2027</strong> · <span class="nowrap">காலை 10:30</span>',
+        where_val: "<strong>CSI காரியவட்டம்</strong>, திருவனந்தபுரம்",
+        cd_title: "“சம்மதிக்கிறேன்” என்று சொல்லும் நாள் வரை",
+        u_days: "நாட்கள்", u_hours: "மணி", u_mins: "நிமிடம்", u_secs: "வினாடி",
+        married: "திருமணம் இனிதே நிறைவேறியது!",
+        cd_note: "புதன்கிழமை, 27 ஜனவரி 2027, காலை 10:30, திருவனந்தபுரம். ஜெர்மனியில் உள்ள நண்பர்களுக்கு அப்போது காலை 6:00.",
+        verse: "“ஆகையால், தேவன் இணைத்ததை மனுஷன் பிரிக்காதிருக்கக்கடவன்.”",
+        verse_ref: "மாற்கு 10:9",
+        ev_eyebrow: "மூன்று கொண்டாட்டங்கள், இரண்டு நகரங்கள்",
+        ev_title: "காயல்கள் முதல் மெரினா வரை",
+        ev_hint: "அழைப்பிதழைத் தொட்டால் முழு அளவில் திறந்து சேமிக்கலாம்.",
+        d_mon: "ஜனவரி 2027<br>திங்கள்", d_wed: "ஜனவரி 2027<br>புதன்", d_sat: "ஜனவரி 2027<br>சனி",
+        t_mehndi: "மெஹந்தி &amp; ஹல்தி", t_wedding: "திருமண ஆராதனை", t_reception: "திருமண வரவேற்பு",
+        f_mehndi: "மெஹந்தி", f_haldi: "ஹல்தி", f_place: "இடம்", f_time: "நேரம்", f_church: "ஆலயம்", f_lunch: "மதிய உணவு", f_venue: "இடம்",
+        v_10am: "காலை 10:00", v_evening: "மாலை", v_1030: "காலை 10:30", v_5pm: "மாலை 5:00",
+        v_bride_home: "மணமகள் இல்லம், Vijaya Bhavan, Pinakottukonam, காரியவட்டம்",
+        v_church: "CSI காரியவட்டம், திருவனந்தபுரம்",
+        v_ticc: "TICC, காரியவட்டம்",
+        v_lagoon: "Buhari’s Blue Lagoon, நீலாங்கரை (ECR), சென்னை",
+        l_map: "வரைபடம் ↗", l_church_map: "ஆலய வரைபடம் ↗", l_ticc_map: "TICC வரைபடம் ↗", l_venue_map: "இட வரைபடம் ↗",
+        open: "திற",
+        qr_title: "வழி அறிய ஸ்கேன் செய்யவும்", qr_home: "மணமகள் இல்லம்", qr_church: "ஆலயம்", qr_ticc: "மதிய உணவு · TICC",
+        tag_eyebrow: "உங்கள் புகைப்படங்களைப் பகிர",
+        tag_text: "சென்னையின் பொங்கல் திருவனந்தபுரத்தின் புட்டைச் சந்திக்கிறது. ஒவ்வொரு படத்தையும் நாங்கள் காண, இந்த ஹேஷ்டேக்கைச் சேர்க்கவும்.",
+        copy: "ஹேஷ்டேக்கை நகலெடு",
+        footer: "அன்புடனும் ஜெபத்துடனும், Arjith &amp; Anjali குடும்பத்தினர்",
+        s_kerala: "கேரளா", s_tn: "தமிழ்நாடு",
+        save: "படத்தைச் சேமி", close: "மூடு"
+      },
+      ml: {
+        hero_eyebrow: "വിവാഹ ശുശ്രൂഷ · തിരുവനന്തപുരം",
+        tagline: "രണ്ട് സംസ്ഥാനങ്ങൾ. രണ്ട് ഭാഷകൾ. ഒരേ സ്നേഹം.",
+        invite: "ഞങ്ങളുടെ കുടുംബാംഗങ്ങളോടൊപ്പം, ഞങ്ങളുടെ വിവാഹത്തിലേക്ക് നിങ്ങളെ സ്നേഹപൂർവ്വം ക്ഷണിക്കുന്നു.",
+        when: "എപ്പോൾ",
+        where: "എവിടെ",
+        when_val: '<strong>ബുധനാഴ്ച, 2027 ജനുവരി 27</strong> · <span class="nowrap">രാവിലെ 10:30</span>',
+        where_val: "<strong>CSI കാര്യവട്ടം</strong>, തിരുവനന്തപുരം",
+        cd_title: "“ഞാൻ സമ്മതിക്കുന്നു” എന്ന് പറയാൻ ഇനി",
+        u_days: "ദിവസം", u_hours: "മണിക്കൂർ", u_mins: "മിനിറ്റ്", u_secs: "സെക്കൻഡ്",
+        married: "വിവാഹം മംഗളമായി നടന്നു!",
+        cd_note: "ബുധനാഴ്ച, 2027 ജനുവരി 27, രാവിലെ 10:30, തിരുവനന്തപുരം. ജർമ്മനിയിലുള്ള സുഹൃത്തുക്കൾക്ക് അപ്പോൾ രാവിലെ 6:00.",
+        verse: "“ആകയാൽ ദൈവം യോജിപ്പിച്ചതിനെ മനുഷ്യൻ വേർപിരിക്കരുത്.”",
+        verse_ref: "മർക്കൊസ് 10:9",
+        ev_eyebrow: "മൂന്ന് ആഘോഷങ്ങൾ, രണ്ട് നഗരങ്ങൾ",
+        ev_title: "കായലിൽ നിന്ന് മറീന വരെ",
+        ev_hint: "ക്ഷണക്കത്തിൽ തൊട്ടാൽ വലുതായി തുറന്ന് സേവ് ചെയ്യാം.",
+        d_mon: "ജനുവരി 2027<br>തിങ്കൾ", d_wed: "ജനുവരി 2027<br>ബുധൻ", d_sat: "ജനുവരി 2027<br>ശനി",
+        t_mehndi: "മെഹന്ദി &amp; ഹൽദി", t_wedding: "വിവാഹ ശുശ്രൂഷ", t_reception: "വിവാഹ സൽക്കാരം",
+        f_mehndi: "മെഹന്ദി", f_haldi: "ഹൽദി", f_place: "സ്ഥലം", f_time: "സമയം", f_church: "പള്ളി", f_lunch: "ഉച്ചഭക്ഷണം", f_venue: "വേദി",
+        v_10am: "രാവിലെ 10:00", v_evening: "വൈകുന്നേരം", v_1030: "രാവിലെ 10:30", v_5pm: "വൈകുന്നേരം 5:00",
+        v_bride_home: "വധുവിന്റെ വീട്, Vijaya Bhavan, Pinakottukonam, കാര്യവട്ടം",
+        v_church: "CSI കാര്യവട്ടം, തിരുവനന്തപുരം",
+        v_ticc: "TICC, കാര്യവട്ടം",
+        v_lagoon: "Buhari’s Blue Lagoon, Neelankarai (ECR), ചെന്നൈ",
+        l_map: "മാപ്പ് ↗", l_church_map: "പള്ളിയുടെ മാപ്പ് ↗", l_ticc_map: "TICC മാപ്പ് ↗", l_venue_map: "വേദിയുടെ മാപ്പ് ↗",
+        open: "തുറക്കുക",
+        qr_title: "വഴി അറിയാൻ സ്കാൻ ചെയ്യൂ", qr_home: "വധുവിന്റെ വീട്", qr_church: "പള്ളി", qr_ticc: "ഉച്ചഭക്ഷണം · TICC",
+        tag_eyebrow: "നിങ്ങളുടെ ഫോട്ടോകൾ പങ്കിടാൻ",
+        tag_text: "ചെന്നൈയുടെ പൊങ്കൽ തിരുവനന്തപുരത്തിന്റെ പുട്ടിനെ കണ്ടുമുട്ടുന്നു. എല്ലാ ഫോട്ടോകളും ഞങ്ങൾക്ക് കണ്ടെത്താൻ ഈ ഹാഷ്ടാഗ് ചേർക്കൂ.",
+        copy: "ഹാഷ്ടാഗ് കോപ്പി ചെയ്യുക",
+        footer: "സ്നേഹത്തോടും പ്രാർത്ഥനയോടും കൂടെ, Arjith &amp; Anjali-യുടെ കുടുംബാംഗങ്ങൾ",
+        s_kerala: "കേരളം", s_tn: "തമിഴ്നാട്",
+        save: "ചിത്രം സേവ് ചെയ്യുക", close: "അടയ്ക്കുക"
+      }
+    };
+    var i18nNodes = document.querySelectorAll("[data-i18n]");
+    i18nNodes.forEach(function (n) { n._en = n.innerHTML; });
+
     // ---- "in N days" on each card, counted in Indian calendar days ----
     function istDay(ms) { return Math.floor((ms + IST_OFFSET) / DAY); }
-    document.querySelectorAll("[data-start]").forEach(function (chip) {
-      var start = Date.parse(chip.getAttribute("data-start"));
-      var now = Date.now();
-      var diff = istDay(start) - istDay(now);
-      var text;
-      if (start < now) text = "Celebrated";
-      else if (diff > 1) text = "in " + diff + " days";
-      else if (diff === 1) text = "Tomorrow";
-      else text = "Today";
-      chip.textContent = text;
-    });
+    function renderChips() {
+      var w = WORDS[current];
+      document.querySelectorAll("[data-start]").forEach(function (chip) {
+        var start = Date.parse(chip.getAttribute("data-start"));
+        var now = Date.now();
+        var diff = istDay(start) - istDay(now);
+        var text;
+        if (start < now) text = w.celebrated;
+        else if (diff > 1) text = w.inDays(diff);
+        else if (diff === 1) text = w.tomorrow;
+        else text = w.today;
+        chip.textContent = text;
+      });
+    }
 
     // ---- Invitation viewer (falls back to opening the image if <dialog> is missing) ----
     var viewer = document.getElementById("viewer");
@@ -848,8 +1015,8 @@
     var tag = document.getElementById("hashtag");
     btn.addEventListener("click", function () {
       function done() {
-        btn.textContent = "Copied";
-        setTimeout(function () { btn.textContent = "Copy hashtag"; }, 1800);
+        btn.textContent = WORDS[current].copied;
+        setTimeout(function () { btn.textContent = WORDS[current].copy; }, 1800);
       }
       function fallback() {
         var range = document.createRange();
@@ -857,7 +1024,7 @@
         var sel = window.getSelection();
         sel.removeAllRanges();
         sel.addRange(range);
-        btn.textContent = "Selected, now copy it";
+        btn.textContent = WORDS[current].selected;
       }
       try {
         navigator.clipboard.writeText(tag.textContent).then(done, fallback);
@@ -865,6 +1032,31 @@
         fallback();
       }
     });
+
+    function setLang(lang, remember) {
+      if (!WORDS[lang]) lang = "en";
+      current = lang;
+      document.documentElement.lang = lang;
+      i18nNodes.forEach(function (n) {
+        var v = lang !== "en" && TEXT[lang][n.getAttribute("data-i18n")];
+        n.innerHTML = v || n._en;
+      });
+      document.querySelectorAll(".langs button").forEach(function (b) {
+        b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false");
+      });
+      renderChips();
+      queue();
+      if (remember) { try { localStorage.setItem("lang", lang); } catch (e) {} }
+    }
+    document.querySelectorAll(".langs button").forEach(function (b) {
+      b.addEventListener("click", function () { setLang(b.getAttribute("data-lang"), true); });
+    });
+    // ?lang=ta or ?lang=ml in the link wins, then the guest's last choice, then the phone's language
+    var asked = null, saved = null;
+    try { asked = new URLSearchParams(window.location.search).get("lang"); } catch (e) {}
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    var device = (navigator.language || "").slice(0, 2);
+    setLang(asked || saved || (device === "ta" || device === "ml" ? device : "en"), false);
   })();
 </script>
 </body>
