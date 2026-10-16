@@ -552,6 +552,19 @@
   }
   .walk.met .walk-heart { opacity: 1; transform: translate(-50%, 0) scale(1); }
 
+  /* ---------- Personal greeting from ?to= ---------- */
+  .dear {
+    margin: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.45rem;
+    line-height: 1.3;
+    color: var(--maroon);
+    overflow-wrap: anywhere;
+  }
+  .dear .dear-name { font-style: normal; font-weight: 500; }
+  :root:is([lang="ta"], [lang="ml"]) .dear { font-style: normal; font-size: 1.25rem; }
+
   /* ---------- Language switch ---------- */
   .langs-row { display: flex; justify-content: flex-end; padding-top: 14px; }
   .langs {
@@ -648,6 +661,7 @@
     </figure>
 
     <div class="hero-text">
+      <p class="dear" id="dear" hidden></p>
       <p class="label" data-i18n="hero_eyebrow">Holy Matrimony · Thiruvananthapuram</p>
       <h1 class="names">
         <span>Arjith Praison</span>
@@ -849,11 +863,11 @@
     var current = "en";
     var WORDS = {
       en: { inDays: function (n) { return "in " + n + " days"; }, tomorrow: "Tomorrow", today: "Today", celebrated: "Celebrated",
-            copy: "Copy hashtag", copied: "Copied", selected: "Selected, now copy it" },
+            copy: "Copy hashtag", copied: "Copied", selected: "Selected, now copy it", dear: "Dear {name}," },
       ta: { inDays: function (n) { return "இன்னும் " + n + " நாட்கள்"; }, tomorrow: "நாளை", today: "இன்று", celebrated: "நடந்து முடிந்தது",
-            copy: "ஹேஷ்டேக்கை நகலெடு", copied: "நகலெடுக்கப்பட்டது", selected: "தேர்வு செய்யப்பட்டது, இப்போது நகலெடுக்கவும்" },
+            copy: "ஹேஷ்டேக்கை நகலெடு", copied: "நகலெடுக்கப்பட்டது", selected: "தேர்வு செய்யப்பட்டது, இப்போது நகலெடுக்கவும்", dear: "அன்புள்ள {name}," },
       ml: { inDays: function (n) { return "ഇനി " + n + " ദിവസം"; }, tomorrow: "നാളെ", today: "ഇന്ന്", celebrated: "നടന്നു",
-            copy: "ഹാഷ്ടാഗ് കോപ്പി ചെയ്യുക", copied: "കോപ്പി ചെയ്തു", selected: "തിരഞ്ഞെടുത്തു, ഇനി കോപ്പി ചെയ്യൂ" }
+            copy: "ഹാഷ്ടാഗ് കോപ്പി ചെയ്യുക", copied: "കോപ്പി ചെയ്തു", selected: "തിരഞ്ഞെടുത്തു, ഇനി കോപ്പി ചെയ്യൂ", dear: "പ്രിയപ്പെട്ട {name}," }
     };
     var TEXT = {
       ta: {
@@ -1033,6 +1047,22 @@
       }
     });
 
+    // ---- Personal invite: ?to=Kochacchan%20%26%20Family puts "Dear Kochacchan & Family," above the names ----
+    var guest = "";
+    try { guest = (new URLSearchParams(window.location.search).get("to") || "").trim().slice(0, 80); } catch (e) {}
+    var dear = document.getElementById("dear");
+    function renderDear() {
+      if (!guest) return;
+      var parts = WORDS[current].dear.split("{name}");
+      var name = document.createElement("span");
+      name.className = "dear-name";
+      name.textContent = guest;
+      dear.textContent = parts[0];
+      dear.appendChild(name);
+      dear.appendChild(document.createTextNode(parts[1]));
+      dear.hidden = false;
+    }
+
     function setLang(lang, remember) {
       if (!WORDS[lang]) lang = "en";
       current = lang;
@@ -1045,6 +1075,7 @@
         b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false");
       });
       renderChips();
+      renderDear();
       queue();
       if (remember) { try { localStorage.setItem("lang", lang); } catch (e) {} }
     }

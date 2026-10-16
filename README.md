@@ -10,3 +10,10 @@ Live: https://arjithpraison7.github.io/pongalwedsputtu/
 
 Languages: English, Tamil and Malayalam (switch at the top). A link can open in one language with `?lang=ta` or `?lang=ml`.
 Each event card has a QR code for its map location.
+
+Personal invite links: add `?to=<name>` (URL-encoded), optionally with `&lang=ta|ml`, e.g.
+`https://arjithpraison7.github.io/pongalwedsputtu/?lang=ml&to=Kochacchan%20%26%20Family`
+shows "പ്രിയപ്പെട്ട Kochacchan & Family," above the names. The name is shown as plain text and cut at 80 characters.
+
+Spreadsheet (Google Sheets, Excel, LibreOffice), name in A2 and language (en/ta/ml) in B2:
+`="https://arjithpraison7.github.io/pongalwedsputtu/?lang="&B2&"&to="&ENCODEURL(A2)`
